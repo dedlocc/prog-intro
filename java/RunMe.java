@@ -18,11 +18,9 @@ public class RunMe {
     public static void main(String[] args) {
         final byte[] password = parseArgs(args);
 
-        System.out.println("Register keys at http://gg.gg/year2020-prog-intro-2");
-
         key0(password);
         System.out.println("The first key was low-hanging fruit, can you found others?");
-        System.out.println("Try to modify some code in keyX(...) functions");
+        System.out.println("Try to read, understand and modify code in keyX(...) functions");
 
         key2(password);
         key3(password);
@@ -117,7 +115,7 @@ public class RunMe {
 
 
     private static void key7(final byte[] password) {
-        // Count the number of occurrences of the most frequent noun at this following page:
+        // Count the number of occurrences of the most frequent noun at the following page:
         // https://docs.oracle.com/javase/specs/jls/se11/html/jls-4.html
         int result = 0;
         if (result != 0) {
@@ -202,7 +200,7 @@ public class RunMe {
 
     // ---------------------------------------------------------------------------------------------------------------
     // You may ignore all code below this line.
-    // It is not required to get all keys
+    // It is not required to any all keys
     // ---------------------------------------------------------------------------------------------------------------
 
     private static void print(final int no, long result, final byte[] password) {
@@ -212,7 +210,7 @@ public class RunMe {
             result >>>= 8;
         }
 
-        System.out.format("Key %d: %s%n", no, key(key));
+        System.out.format("Key %d: https://www.kgeorgiy.info/courses/prog-intro/hw1/%s%n", no, key(key));
     }
 
     private static String key(final byte[] data) {

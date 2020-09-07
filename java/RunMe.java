@@ -52,9 +52,9 @@ public class RunMe {
 
     private static void key2(final byte[] password) {
         int result = 0;
-        for (int i = 0; i < 100_000; i++) {
-            for (int j = 0; j < 100_000; j++) {
-                for (int k = 0; k < 100_000; k++) {
+        for (int i = 0; i < 300_000; i++) {
+            for (int j = 0; j < 300_000; j++) {
+                for (int k = 0; k < 300_000; k++) {
                     result ^= (i * 7) | (j + k);
                     result ^= result << 1;
                 }
@@ -202,7 +202,7 @@ public class RunMe {
         print(13, result, password);
     }
 
-    
+
     // ---------------------------------------------------------------------------------------------------------------
     // You may ignore all code below this line.
     // It is not required to any all keys

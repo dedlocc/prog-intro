@@ -202,12 +202,7 @@ public class RunMe {
         print(13, result, password);
     }
 
-
-    private static void key14(final byte[] data) {
-        // History browsing, Yoo-hoo!
-        print(14, 2047502843754345435L + data[5], data);
-    }
-
+    
     // ---------------------------------------------------------------------------------------------------------------
     // You may ignore all code below this line.
     // It is not required to any all keys

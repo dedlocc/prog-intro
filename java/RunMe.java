@@ -22,8 +22,8 @@ public class RunMe {
         System.out.println("The first key was low-hanging fruit, can you found others?");
         System.out.println("Try to read, understand and modify code in keyX(...) functions");
 
+        key1(password);
         key2(password);
-        key3(password);
         key4(password);
         key5(password);
         key6(password);
@@ -46,32 +46,34 @@ public class RunMe {
         while ("1".length() == 1) {
         }
 
-        print(1, 224753495938049280L, password);
+        print(1, 6355708432750832524L, password);
     }
 
 
     private static void key2(final byte[] password) {
         int result = 0;
-        for (int i = 0; i < 300_000; i++) {
-            for (int j = 0; j < 300_000; j++) {
-                for (int k = 0; k < 300_000; k++) {
+        for (int i = 0; i < 100_000; i++) {
+            for (int j = 0; j < 100_000; j++) {
+                for (int k = 0; k < 100_000; k++) {
                     result ^= (i * 7) | (j + k);
                     result ^= result << 1;
                 }
             }
         }
 
-        print(2, 7345540958740857324L, password);
+        print(2, 8751843538458437584L, password);
     }
 
 
     private static void key3(final byte[] password) {
         int result = 0;
-        for (int i = 0; i < 3000; i++) {
-            for (int j = 0; j < 3000; j++) {
-                for (int k = 0; k < 3000; k++) {
-                    result ^= (i * 3) | (j + k);
-                    result ^= result << 1;
+        for (int i = 0; i < 2020; i++) {
+            for (int j = 0; j < 2020; j++) {
+                for (int k = 0; k < 2020; k++) {
+                    for (int p = 0; p < 10; p++) {
+                        result ^= (i * 3) | (j * 2 + k) & ~p;
+                        result ^= result << 1;
+                    }
                 }
             }
         }
@@ -82,7 +84,7 @@ public class RunMe {
 
     private static void key4(final byte[] password) {
         for (long i = Long.MIN_VALUE; i < Long.MAX_VALUE; i++) {
-            if ((i ^ (i >> 32)) == 2348327482723738188L) {
+            if ((i ^ (i >> 32)) == 6095803860860580956L) {
                 print(4, i, password);
             }
         }
@@ -92,9 +94,10 @@ public class RunMe {
     private static final long PRIME = 1073741789;
 
     private static void key5(final byte[] password) {
+        final long n = 1000_000_000_000_000L ^ ((password[0] << 8) + password[1]);
         long result = 0;
-        for (long i = 0; i < 1000_000_000_000_000L; i++) {
-            result = (result + i + i / 2 + i / 3) % PRIME;
+        for (long i = 0; i < n; i++) {
+            result = (result + i + i / 2 + i / 3 + i / 4) % PRIME;
         }
 
         print(5, result, password);
@@ -103,12 +106,13 @@ public class RunMe {
 
     private static void key6(final byte[] password) {
         /*
-          \u002a\u002f\u0077\u0068\u0069\u006c\u0065\u0020\u0028\u0022\u0031\u0022
-          \u002e\u006c\u0065\u006e\u0067\u0074\u0068\u0028\u0029\u0020\u003d\u003d
-          \u0020\u0031\u0029\u003b\u0020\u0020\u006c\u006f\u006e\u0067\u0020\u0009
-          \u0020\u0020\u0072\u0065\u0073\u0075\u006c\u0074\u0020\u003d\u0020\u000a
-          \u0033\u0034\u0035\u0037\u0030\u0034\u0033\u0038\u0037\u0035\u0030\u004c
-          \u003b\u002f\u002a
+            \u002a\u002f\u0077\u0068\u0069\u006c\u0065\u0020\u0028\u0022\u0031\u0022
+            \u002e\u006c\u0065\u006e\u0067\u0074\u0068\u0028\u0029\u0020\u003d\u003d
+            \u0020\u0031\u0029\u003b\u0020\u0020\u006c\u006f\u006e\u0067\u0020\u0009
+            \u0020\u0020\u0072\u0065\u0073\u0075\u006c\u0074\u0020\u003d\u0020\u000a
+            \u0037\u0036\u0039\u0038\u0037\u0036\u0038\u0035\u0034\u0036\u0034\u004c
+            \u002b\u0070\u0061\u0073\u0073\u0077\u006f\u0072\u0064\u005b\u0033\u005d
+            \u003b\u002f\u002a
         */
         print(6, result, password);
     }
@@ -116,7 +120,7 @@ public class RunMe {
 
     private static void key7(final byte[] password) {
         // Count the number of occurrences of the most frequent noun at the following page:
-        // https://docs.oracle.com/javase/specs/jls/se11/html/jls-4.html
+        // https://docs.oracle.com/javase/specs/jls/se11/html/jls-6.html
         int result = 0;
         if (result != 0) {
             print(7, result, password);
@@ -156,7 +160,7 @@ public class RunMe {
 
 
     private static void key11(final byte[] password) {
-        final BigInteger year = BigInteger.valueOf(-2019);
+        final BigInteger year = BigInteger.valueOf(-2020);
         final BigInteger prime = BigInteger.valueOf(PRIME);
 
         long result = Stream.iterate(BigInteger.ZERO, BigInteger.ONE::add)
@@ -168,7 +172,7 @@ public class RunMe {
     }
 
 
-    private static final long MAX_DEPTH = 10_000_000L;
+    private static final long MAX_DEPTH = 100_000_000L;
 
     private static void key12(final byte[] password) {
         try {
@@ -180,7 +184,7 @@ public class RunMe {
 
     private static void key12(final byte[] password, long depth, long result) {
         if (depth < MAX_DEPTH) {
-            key12(password, depth + 1, (result ^ 5487) + depth * 11);
+            key12(password, depth + 1, (result ^ 656132467) + depth * 17);
         } else {
             print(12, result, password);
         }
@@ -188,14 +192,20 @@ public class RunMe {
 
 
     private static void key13(final byte[] password) {
-        final BigInteger secondsInDay = BigInteger.valueOf(60 * 60 * 24);
+        final BigInteger secondsInFullTurn = BigInteger.valueOf(360 * 60 * 60);
 
         long result = Stream.iterate(BigInteger.ZERO, BigInteger.ONE::add)
-                .map(secondsInDay::multiply)
-                .collect(Collectors.reducing(BigInteger.ZERO, BigInteger::add))
+                .map(secondsInFullTurn::multiply)
+                .reduce(BigInteger.ZERO, BigInteger::add)
                 .longValue();
 
         print(13, result, password);
+    }
+
+
+    private static void key14(final byte[] data) {
+        // History browsing, Yoo-hoo!
+        print(14, 2047502843754345435L + data[5], data);
     }
 
     // ---------------------------------------------------------------------------------------------------------------
@@ -261,7 +271,7 @@ public class RunMe {
         }
     }
 
-    private static final byte[] SALT = "Dy0IpHCjFnjNLST4rFRNN43GvzBqOcdbc9R5PkBk".getBytes(StandardCharsets.UTF_8);
+    private static final byte[] SALT = "divAcVuetDerrogWaph7ugLarbyianAvDapquev2Tholyat8KoakGenMysby".getBytes(StandardCharsets.UTF_8);
 
     private static final List<String> KEYWORDS = List.of(
             "abstract",

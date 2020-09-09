@@ -2,6 +2,29 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/prog-intro/homeworks.html)
 
+## Домашнее задание 2. Сумма чисел
+
+Для того, чтобы протестировать исходную программу:
+
+ 1. Скачайте откомпилированные тесты ([SumTest.jar](artifacts/sum/SumTest.jar))
+ 1. Откомпилируйте `Sum.java`
+ 1. Проверьте, что создался `Sum.class`
+ 1. В каталоге, в котором находится `Sum.class` выполните команду
+    ```
+       java -jar <путь к SumTest.jar>
+    ```
+    * Например, если `SumTest.jar` находится в текущем каталоге, выполните команду
+    ```
+        java -jar SumTest.jar
+    ```
+
+Исходный код тестов:
+
+* [SumTest.java](java/sum/SumTest.java)
+* [SumChecker.java](java/sum/SumChecker.java)
+* [Базовые классы](java/base/)
+
+
 ## Домашнее задание 1. Запусти меня!
 
  1. Скачайте исходный код ([RunMe.java](java/RunMe.java))

@@ -30,6 +30,12 @@
     * Класс должен иметь имя `SumLong`
     * [Исходный код тестов](java/sum/SumLongTest.java)
     * [Откомпилированные тесты](artifacts/sum/SumLongTest.jar)
+ * *Float* (для 34-35)
+    * Входные данные являются 32-битными числами с формате с плавающей точкой
+    * Класс должен иметь имя `SumFloat`
+    * Числа разделяются [пробелами-разделителями](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Character.html#SPACE_SEPARATOR)
+    * [Исходный код тестов](java/sum/SumFloatTest.java)
+    * [Откомпилированные тесты](artifacts/sum/SumFloatTest.jar)
 
 
 

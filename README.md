@@ -24,6 +24,13 @@
 * [SumChecker.java](java/sum/SumChecker.java)
 * [Базовые классы](java/base/)
 
+ * *Long* (для 32-33)
+    * Входные данные являются 64-битными целыми числами
+    * Класс должен иметь имя `SumLong`
+    * [Исходный код тестов](java/sum/SumLongTest.java)
+    * [Откомпилированные тесты](artifacts/sum/SumLongTest.jar)
+
+
 
 ## Домашнее задание 1. Запусти меня!
 

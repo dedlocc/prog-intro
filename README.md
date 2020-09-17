@@ -2,6 +2,17 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/prog-intro/homeworks.html)
 
+
+## Домашнее задание 3. Реверс
+
+Исходный код тестов:
+
+* [ReverseTest.java](java/reverse/ReverseTest.java)
+* [ReverseChecker.java](java/reverse/ReverseChecker.java)
+
+Откомпилированные тесты: [ReverseTest.jar](artifacts/reverse/ReverseTest.jar)
+
+
 ## Домашнее задание 2. Сумма чисел
 
 Для того, чтобы протестировать исходную программу:

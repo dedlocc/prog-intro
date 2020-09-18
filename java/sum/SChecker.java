@@ -1,5 +1,6 @@
 package sum;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -13,4 +14,6 @@ public interface SChecker {
     Random getRandom();
 
     String randomString(final String chars);
+
+    <T> T randomItem(final List<T> items);
 }

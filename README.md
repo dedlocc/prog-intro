@@ -36,16 +36,22 @@
 * [Базовые классы](java/base/)
 
 Модификации:
- * *Long* (для 32-33)
+ * *Long* (для 32, 33)
     * Входные данные являются 64-битными целыми числами
     * Класс должен иметь имя `SumLong`
     * [Исходный код тестов](java/sum/SumLongTest.java)
     * [Откомпилированные тесты](artifacts/sum/SumLongTest.jar)
- * *Float* (для 34-35)
+ * *Float* (для 34, 35)
     * Входные данные являются 32-битными числами с формате с плавающей точкой
     * Класс должен иметь имя `SumFloat`
     * [Исходный код тестов](java/sum/SumFloatTest.java)
     * [Откомпилированные тесты](artifacts/sum/SumFloatTest.jar)
+ * *LongSpace* (для 36, 37)
+    * Входные данные являются 64-битными целыми числами
+    * Класс должен иметь имя `SumLongSpace`
+    * Числа разделяются [пробелами-разделителями](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Character.html#SPACE_SEPARATOR)
+    * [Исходный код тестов](java/sum/SumLongSpaceTest.java)
+    * [Откомпилированные тесты](artifacts/sum/SumLongSpaceTest.jar)
 
 
 

@@ -54,7 +54,7 @@
     * [Откомпилированные тесты](artifacts/sum/SumLongSpaceTest.jar)
  * *BigIntegerSpace* (для 38, 39)
     * Входные данные помещаются в тип [BigInteger](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigInteger.html)
-    * Класс должен иметь имя `SumBigInteger`
+    * Класс должен иметь имя `SumBigIntegerSpace`
     * Числа разделяются [пробелами-разделителями](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Character.html#SPACE_SEPARATOR)
     * [Исходный код тестов](java/sum/SumBigIntegerSpaceTest.java)
     * [Откомпилированные тесты](artifacts/sum/SumBigIntegerSpaceTest.jar)

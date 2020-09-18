@@ -84,7 +84,7 @@ public class RunMe {
 
     private static void key4(final byte[] password) {
         for (long i = Long.MIN_VALUE; i < Long.MAX_VALUE; i++) {
-            if ((i ^ (i >> 32)) == 6095803860860580956L) {
+            if ((i ^ (i >>> 32)) == 6095803860860580956L) {
                 print(4, i, password);
             }
         }

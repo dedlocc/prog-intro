@@ -35,6 +35,12 @@
     * Класс должен иметь имя `ReverseMin`
     * [Исходный код тестов](java/reverse/ReverseMinTest.java)
     * [Откомпилированные тесты](artifacts/reverse/ReverseMinTest.jar)
+ * *Avg* (для 36, 37)
+    * Рассмотрим входные данные как (не полностью определенную) матрицу,
+      вместо каждого числа выведите среднее из чисел в его столбце и строке
+    * Класс должен иметь имя `ReverseAvg`
+    * [Исходный код тестов](java/reverse/ReverseAvgTest.java)
+    * [Откомпилированные тесты](artifacts/reverse/ReverseAvgTest.jar)
 
 
 ## Домашнее задание 2. Сумма чисел

@@ -25,7 +25,7 @@ public class MainChecker extends Randomized {
 //            clazz.newInstance();
             method = clazz.getMethod("main", String[].class);
         } catch (final Exception e) {
-            throw new AssertionError("Could not found main(String[]) in class "  + className, e);
+            throw new AssertionError("Could not find main(String[]) in class "  + className, e);
         }
     }
 

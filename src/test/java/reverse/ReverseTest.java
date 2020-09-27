@@ -11,7 +11,7 @@ public class ReverseTest {
     private final ReverseChecker checker;
     private final int maxSize;
 
-    public  ReverseTest(final int maxSize) {
+    public ReverseTest(final int maxSize) {
         this("Reverse", maxSize);
     }
 
@@ -21,7 +21,7 @@ public class ReverseTest {
     }
 
     public static void main(String... args) {
-        new ReverseTest("Reverse", MAX_SIZE).run();
+        new ReverseTest(MAX_SIZE).run();
     }
 
     protected void run() {

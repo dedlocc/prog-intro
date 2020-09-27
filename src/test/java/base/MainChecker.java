@@ -21,7 +21,7 @@ public class MainChecker extends Randomized {
     public MainChecker(final String className) {
         try {
             final URL url = new File(".").toURI().toURL();
-            final Class<?> clazz = new URLClassLoader(new URL[]{url}).loadClass(className);
+            final Class<?> clazz = new URLClassLoader(new URL[]{url}).loadClass(getClass().getPackageName() + "." + className);
 //            clazz.newInstance();
             method = clazz.getMethod("main", String[].class);
         } catch (final Exception e) {

@@ -12,6 +12,15 @@
 
 Откомпилированные тесты: [WordStatInputTest.jar](artifacts/wordStat/WordStatInputTest.jar)
 
+Модификации
+ * *InputPrefix*
+    * Выходной файл должен содержать все различные префиксы длины 3
+      слов встречающихся во входном файле, в порядке их появления.
+      Слова длины меньшей 3 игнорируются.
+    * Класс должен иметь имя `WordStatInputPrefix`
+    * [Исходный код тестов](java/wordStat/WordStatInputPrefixTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatInputPrefixTest.jar)
+
 
 ## Домашнее задание 3. Реверс
 

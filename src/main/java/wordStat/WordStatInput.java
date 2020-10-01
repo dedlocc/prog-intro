@@ -54,14 +54,19 @@ public final class WordStatInput {
 
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + args[0]);
+            return;
         } catch (IOException e) {
             System.err.println("Cannot read from file " + args[0] + ": " + e.getMessage());
+            return;
+        }
+
+        var sb = new StringBuilder();
+        for (var entry : map.entrySet()) {
+            sb.append(entry.getKey()).append(' ').append(entry.getValue()).append('\n');
         }
 
         try (var writer = new FileWriter(args[1], StandardCharsets.UTF_8)) {
-            for (var entry : map.entrySet()) {
-                writer.write(entry.getKey() + " " + entry.getValue() + "\n");
-            }
+            writer.write(sb.toString());
         } catch (IOException e) {
             System.err.println("Cannot write to file " + args[0] + ": " + e.getMessage());
         }

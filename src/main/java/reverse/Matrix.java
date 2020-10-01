@@ -6,7 +6,7 @@ import java.util.Arrays;
  * @author Rahimjon Hakimov
  */
 public final class Matrix {
-    private IntArray[] values = new IntArray[IntArray.DEFAULT_SIZE];
+    private IntArray[] values = new IntArray[IntArray.DEFAULT_CAPACITY];
     private int size = 0;
 
     private void expand() {

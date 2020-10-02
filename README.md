@@ -43,6 +43,14 @@
     * Класс должен иметь имя `WordStatWordsPrefix`
     * [Исходный код тестов](java/wordStat/WordStatWordsPrefixTest.java)
     * [Откомпилированные тесты](artifacts/wordStat/WordStatWordsPrefixTest.jar)
+ * *CountShingles* (для 38, 39)
+    * Выходной файл должен содержать все различные подстроки длины 3
+      слов встречающихся во входном файле, упорядоченые по возрастанию числа
+      вхождений, а при равном числе вхождений – по порядку первого вхождения
+      во входном файле.
+    * Класс должен иметь имя `WordStatCountShingles`
+    * [Исходный код тестов](java/wordStat/WordStatCountShinglesTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatCountShinglesTest.jar)
 
 
 ## Домашнее задание 3. Реверс

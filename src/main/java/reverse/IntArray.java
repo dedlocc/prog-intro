@@ -8,10 +8,6 @@ public final class IntArray {
     private int[] values = new int[DEFAULT_CAPACITY];
     private int size = 0;
 
-    private void expand() {
-        values = Arrays.copyOf(values, values.length << 1);
-    }
-
     public int size() {
         return size;
     }
@@ -26,7 +22,7 @@ public final class IntArray {
 
     public void add(int n) {
         if (values.length == size) {
-            expand();
+            values = Arrays.copyOf(values, 2 * values.length);
         }
         values[size++] = n;
     }

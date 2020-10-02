@@ -6,16 +6,14 @@ public class SumLongSpace {
 
         for (final var arg : args) {
             int lastSpace = 0, i = 0;
-            for (final var end = arg.length(); i < end; ++i) {
-                if (Character.SPACE_SEPARATOR == Character.getType(arg.charAt(i))) {
+            for (final var end = arg.length(); i <= end; i++) {
+                // Compare with end each iteration - slower than just repeating the code once afterwards
+                if (end == i || Character.SPACE_SEPARATOR == Character.getType(arg.charAt(i))) {
                     if (lastSpace < i) {
                         sum += Long.parseLong(arg.substring(lastSpace, i));
                     }
                     lastSpace = i + 1;
                 }
-            }
-            if (lastSpace < i) {
-                sum += Long.parseLong(arg.substring(lastSpace, i));
             }
         }
 

@@ -3,6 +3,15 @@
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/prog-intro/homeworks.html)
 
 
+## Домашнее задание 5. Свой сканнер
+
+Исходный код тестов:
+
+* [FastReverseTest.java](java/reverse/FastReverseTest.java)
+
+Откомпилированные тесты: [FastReverseTest.jar](artifacts/reverse/FastReverseTest.jar)
+
+
 ## Домашнее задание 4. Подсчет слов
 
 Исходный код тестов:
@@ -27,6 +36,13 @@
     * Класс должен иметь имя `WordStatInputShingles`
     * [Исходный код тестов](java/wordStat/WordStatInputShinglesTest.java)
     * [Откомпилированные тесты](artifacts/wordStat/WordStatInputShinglesTest.jar)
+ * *WordsPrefix*
+    * Выходной файл должен содержать все различные префиксы длины 3
+      слов встречающихся во входном файле, в лексикографическом порядке.
+      Слова длины меньшей 3 игнорируются.
+    * Класс должен иметь имя `WordStatWordsPrefix`
+    * [Исходный код тестов](java/wordStat/WordStatWordsPrefixTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatWordsPrefixTest.jar)
 
 
 ## Домашнее задание 3. Реверс

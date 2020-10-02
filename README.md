@@ -36,7 +36,7 @@
     * Класс должен иметь имя `WordStatInputShingles`
     * [Исходный код тестов](java/wordStat/WordStatInputShinglesTest.java)
     * [Откомпилированные тесты](artifacts/wordStat/WordStatInputShinglesTest.jar)
- * *WordsPrefix*
+ * *WordsPrefix* (для 36, 37)
     * Выходной файл должен содержать все различные префиксы длины 3
       слов встречающихся во входном файле, в лексикографическом порядке.
       Слова длины меньшей 3 игнорируются.

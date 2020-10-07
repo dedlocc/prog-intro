@@ -14,16 +14,18 @@ public class ReverseChecker extends MainStdChecker {
         super(className);
     }
 
-    public void test(final int[][] input, final int[][] output) {
-        checkEquals(toLines(output), runStd(toLines(input)));
+    public void test(final String[][] input, final String[][] output) {
+        final List<String> expected = toLines(output, " ");
+        final List<String> actual = toLines(input, randomString(" ", 1, 10));
+        checkEquals(expected, runStd(actual));
     }
 
-    private List<String> toLines(final int[][] input) {
-        if (input.length == 0) {
+    private List<String> toLines(final String[][] data, final String delimiter) {
+        if (data.length == 0) {
             return Collections.singletonList("");
         }
-        return Arrays.stream(input)
-                .map(row -> Arrays.stream(row).mapToObj(Integer::toString).collect(Collectors.joining(" ")))
+        return Arrays.stream(data)
+                .map(row -> String.join(delimiter, row))
                 .collect(Collectors.toList());
     }
 

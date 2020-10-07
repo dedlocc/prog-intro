@@ -19,6 +19,12 @@
 * [FastReverseTest.java](java/reverse/FastReverseTest.java)
 
 Откомпилированные тесты: [FastReverseTest.jar](artifacts/reverse/FastReverseTest.jar)
+Модификации
+ * *Hex*
+    * Во вводе и выводе используются числа в шестнадцатеричной системе счисления
+    * Класс должен иметь имя `ReverseHex`
+    * [Исходный код тестов](java/reverse/FastReversHexTest.java)
+    * [Откомпилированные тесты](artifacts/reverse/FastReversHexTest.jar)
 
 
 ## Домашнее задание 4. Подсчет слов

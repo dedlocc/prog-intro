@@ -17,7 +17,7 @@ public class Asserts {
     }
 
     public static void assertEquals(final String message, final List<String> expected, final List<String> actual) {
-        for (int i = 0; i  < Math.min(expected.size(), actual.size()); i++) {
+        for (int i = 0; i < Math.min(expected.size(), actual.size()); i++) {
             assertEquals(message + ":" + (i + 1), expected.get(i), actual.get(i));
         }
         assertEquals(message + ": Number of items", expected.size(), actual.size());

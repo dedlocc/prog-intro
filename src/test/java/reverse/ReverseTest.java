@@ -1,6 +1,7 @@
 package reverse;
 
 import java.util.Arrays;
+import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
 /**
@@ -8,8 +9,11 @@ import java.util.stream.IntStream;
  */
 public class ReverseTest {
     public static final int MAX_SIZE = 10_000;
-    private final ReverseChecker checker;
+    public static final int[] DIVISORS = {100, 10, 1};
+    protected final ReverseChecker checker;
     private final int maxSize;
+    protected IntFunction<String> inputToString = Integer::toString;
+    protected IntFunction<String> outputToString = inputToString;
 
     public ReverseTest(final int maxSize) {
         this("Reverse", maxSize);
@@ -73,10 +77,13 @@ public class ReverseTest {
         testRandom(randomProfile(100, maxSize));
         testRandom(randomProfile(maxSize / 10, maxSize));
         testRandom(randomProfile(maxSize, maxSize));
-        testRandom(tweakProfile(constProfile(maxSize, 0), new int[][]{new int[]{maxSize, 0}}));
-        testRandom(tweakProfile(randomProfile(maxSize, maxSize), new int[][]{new int[]{maxSize, 0}}));
-        testRandom(tweakProfile(constProfile(maxSize, 0), new int[][]{new int[]{maxSize / 2, maxSize / 2 - 1}}));
-        testRandom(tweakProfile(constProfile(maxSize, 1), new int[][]{new int[]{maxSize / 3, maxSize / 3, maxSize * 2 / 3}}));
+        for (int d : DIVISORS) {
+            final int size = maxSize / d;
+            testRandom(tweakProfile(constProfile(size, 0), new int[][]{new int[]{size, 0}}));
+            testRandom(tweakProfile(randomProfile(size, maxSize), new int[][]{new int[]{size, 0}}));
+            testRandom(tweakProfile(constProfile(size, 0), new int[][]{new int[]{size / 2, size / 2 - 1}}));
+            testRandom(tweakProfile(constProfile(size, 1), new int[][]{new int[]{size / 3, size / 3, size * 2 / 3}}));
+        }
         checker.printStatus();
     }
 
@@ -106,7 +113,13 @@ public class ReverseTest {
     }
 
     protected void test(final int[][] ints) {
-        checker.test(ints, transform(ints));
+        checker.test(toString(ints, inputToString), toString(transform(ints), outputToString));
+    }
+
+    private String[][] toString(final int[][] ints, final IntFunction<String> intToString) {
+        return Arrays.stream(ints)
+                .map(row -> Arrays.stream(row).mapToObj(intToString).toArray(String[]::new))
+                .toArray(String[][]::new);
     }
 
     protected int[][] transform(final int[][] ints) {

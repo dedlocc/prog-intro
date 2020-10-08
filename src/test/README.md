@@ -2,6 +2,15 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/prog-intro/homeworks.html)
 
+## Домашнее задание 6. Подсчет слов++
+
+Исходный код тестов:
+
+* [WordStatIndexTest.java](java/wordStat/WordStatIndexTest.java)
+* [WordStatIndexChecker.java](java/wordStat/WordStatIndexChecker.java)
+
+Откомпилированные тесты: [WordStatIndexTest.jar](artifacts/wordStat/WordStatIndexTest.jar)
+
 
 ## Домашнее задание 5. Свой сканнер
 
@@ -10,6 +19,17 @@
 * [FastReverseTest.java](java/reverse/FastReverseTest.java)
 
 Откомпилированные тесты: [FastReverseTest.jar](artifacts/reverse/FastReverseTest.jar)
+Модификации
+ * *Hex* (32-33)
+    * Во вводе и выводе используются числа в шестнадцатеричной системе счисления
+    * Класс должен иметь имя `ReverseHex`
+    * [Исходный код тестов](java/reverse/FastReverseHexTest.java)
+    * [Откомпилированные тесты](artifacts/reverse/FastReverseHexTest.jar)
+ * *Abc* (34-35)
+    * Во вводе и выводе используются числа, записаные буквами:
+      нулю соответствует буква `a`, единице – `b` и так далее
+    * [Исходный код тестов](java/reverse/FastReverseAbcTest.java)
+    * [Откомпилированные тесты](artifacts/reverse/FastReverseAbcTest.jar)
 
 
 ## Домашнее задание 4. Подсчет слов
@@ -43,6 +63,14 @@
     * Класс должен иметь имя `WordStatWordsPrefix`
     * [Исходный код тестов](java/wordStat/WordStatWordsPrefixTest.java)
     * [Откомпилированные тесты](artifacts/wordStat/WordStatWordsPrefixTest.jar)
+ * *CountShingles* (для 38, 39)
+    * Выходной файл должен содержать все различные подстроки длины 3
+      слов встречающихся во входном файле, упорядоченые по возрастанию числа
+      вхождений, а при равном числе вхождений – по порядку первого вхождения
+      во входном файле.
+    * Класс должен иметь имя `WordStatCountShingles`
+    * [Исходный код тестов](java/wordStat/WordStatCountShinglesTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatCountShinglesTest.jar)
 
 
 ## Домашнее задание 3. Реверс

@@ -31,12 +31,19 @@
     * Класс должен иметь имя `ReverseAbc`
     * [Исходный код тестов](java/reverse/FastReverseAbcTest.java)
     * [Откомпилированные тесты](artifacts/reverse/FastReverseAbcTest.jar)
- * *HexDec*
+ * *HexDec* (36-37)
     * На вход подаются десятичные и шестнадцатеричные числа
     * Шестнадцатеричные числа имеют префикс `0x`
     * Класс должен иметь имя `ReverseHexDec`
     * [Исходный код тестов](java/reverse/FastReverseHexDecTest.java)
     * [Откомпилированные тесты](artifacts/reverse/FastReverseHexDecTest.jar)
+ * *HexAbc* (38-39)
+    * На вход подаются десятичные и шестнадцатеричные числа
+    * Шестнадцатеричные числа имеют префикс `0x`
+    * Десятеричные числа могут быть записаны буквами
+    * Класс должен иметь имя `ReverseHexAbc`
+    * [Исходный код тестов](java/reverse/FastReverseHexAbcTest.java)
+    * [Откомпилированные тесты](artifacts/reverse/FastReverseHexAbcTest.jar)
 
 
 ## Домашнее задание 4. Подсчет слов

@@ -2,6 +2,15 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/prog-intro/homeworks.html)
 
+
+## Домашнее задание 7. Разметка
+
+Исходный код тестов:
+
+ * [MarkdownTest.java](java/markup/MarkdownTest.java)
+ * [AbstractTest.java](java/markup/AbstractTest.java)
+
+
 ## Домашнее задание 6. Подсчет слов++
 
 Исходный код тестов:

@@ -11,6 +11,15 @@
 
 Откомпилированные тесты: [WordStatIndexTest.jar](artifacts/wordStat/WordStatIndexTest.jar)
 
+Модификации
+ * *LineIndex*
+    * Вместо номеров вхождений во всем файле надо указывать
+      `<номер строки>:<номер в строке>`
+    * Класс должен иметь имя `WordStatLineIndex`
+    * [Исходный код тестов](java/wordStat/WordStatLineIndexTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatLineIndexTest.jar)
+
+
 
 ## Домашнее задание 5. Свой сканнер
 

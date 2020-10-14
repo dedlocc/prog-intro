@@ -20,6 +20,22 @@
 
 Откомпилированные тесты: [WordStatIndexTest.jar](artifacts/wordStat/WordStatIndexTest.jar)
 
+Модификации
+ * *LineIndex*  (32-33)
+    * Вместо номеров вхождений во всем файле надо указывать
+      `<номер строки>:<номер в строке>`
+    * Класс должен иметь имя `WordStatLineIndex`
+    * [Исходный код тестов](java/wordStat/WordStatLineIndexTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatLineIndexTest.jar)
+ * *SortedLineIndex* (34-35)
+    * В выходном файле слова должны быть упорядочены в лексикографическом порядке
+    * Вместо номеров вхождений во всем файле надо указывать
+      `<номер строки>:<номер в строке>`
+    * Класс должен иметь имя `WordStatSortedLineIndex`
+    * [Исходный код тестов](java/wordStat/WordStatSortedLineIndexTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatSortedLineIndexTest.jar)
+
+
 
 ## Домашнее задание 5. Свой сканнер
 

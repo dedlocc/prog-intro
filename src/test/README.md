@@ -2,6 +2,15 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/prog-intro/homeworks.html)
 
+
+## Домашнее задание 7. Разметка
+
+Исходный код тестов:
+
+ * [MarkdownTest.java](java/markup/MarkdownTest.java)
+ * [AbstractTest.java](java/markup/AbstractTest.java)
+
+
 ## Домашнее задание 6. Подсчет слов++
 
 Исходный код тестов:
@@ -10,6 +19,22 @@
 * [WordStatIndexChecker.java](java/wordStat/WordStatIndexChecker.java)
 
 Откомпилированные тесты: [WordStatIndexTest.jar](artifacts/wordStat/WordStatIndexTest.jar)
+
+Модификации
+ * *LineIndex*  (32-33)
+    * Вместо номеров вхождений во всем файле надо указывать
+      `<номер строки>:<номер в строке>`
+    * Класс должен иметь имя `WordStatLineIndex`
+    * [Исходный код тестов](java/wordStat/WordStatLineIndexTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatLineIndexTest.jar)
+ * *SortedLineIndex* (34-35)
+    * В выходном файле слова должны быть упорядочены в лексикографическом порядке
+    * Вместо номеров вхождений во всем файле надо указывать
+      `<номер строки>:<номер в строке>`
+    * Класс должен иметь имя `WordStatSortedLineIndex`
+    * [Исходный код тестов](java/wordStat/WordStatSortedLineIndexTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatSortedLineIndexTest.jar)
+
 
 
 ## Домашнее задание 5. Свой сканнер
@@ -28,8 +53,22 @@
  * *Abc* (34-35)
     * Во вводе и выводе используются числа, записаные буквами:
       нулю соответствует буква `a`, единице – `b` и так далее
+    * Класс должен иметь имя `ReverseAbc`
     * [Исходный код тестов](java/reverse/FastReverseAbcTest.java)
     * [Откомпилированные тесты](artifacts/reverse/FastReverseAbcTest.jar)
+ * *HexDec* (36-37)
+    * На вход подаются десятичные и шестнадцатеричные числа
+    * Шестнадцатеричные числа имеют префикс `0x`
+    * Класс должен иметь имя `ReverseHexDec`
+    * [Исходный код тестов](java/reverse/FastReverseHexDecTest.java)
+    * [Откомпилированные тесты](artifacts/reverse/FastReverseHexDecTest.jar)
+ * *HexAbc* (38-39)
+    * На вход подаются десятичные и шестнадцатеричные числа
+    * Шестнадцатеричные числа имеют префикс `0x`
+    * Десятеричные числа могут быть записаны буквами
+    * Класс должен иметь имя `ReverseHexAbc`
+    * [Исходный код тестов](java/reverse/FastReverseHexAbcTest.java)
+    * [Откомпилированные тесты](artifacts/reverse/FastReverseHexAbcTest.jar)
 
 
 ## Домашнее задание 4. Подсчет слов

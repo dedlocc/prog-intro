@@ -21,19 +21,28 @@
 Откомпилированные тесты: [WordStatIndexTest.jar](artifacts/wordStat/WordStatIndexTest.jar)
 
 Модификации
- * *LineIndex*  (32-33)
+ * *LineIndex*  (32, 33)
     * Вместо номеров вхождений во всем файле надо указывать
       `<номер строки>:<номер в строке>`
     * Класс должен иметь имя `WordStatLineIndex`
     * [Исходный код тестов](java/wordStat/WordStatLineIndexTest.java)
     * [Откомпилированные тесты](artifacts/wordStat/WordStatLineIndexTest.jar)
- * *SortedLineIndex* (34-35)
+ * *SortedLineIndex* (34, 35)
     * В выходном файле слова должны быть упорядочены в лексикографическом порядке
     * Вместо номеров вхождений во всем файле надо указывать
       `<номер строки>:<номер в строке>`
     * Класс должен иметь имя `WordStatSortedLineIndex`
     * [Исходный код тестов](java/wordStat/WordStatSortedLineIndexTest.java)
     * [Откомпилированные тесты](artifacts/wordStat/WordStatSortedLineIndexTest.jar)
+ * *CountLineIndex*  (36, 37)
+    * В выходном файле слова должны быть упорядочены по возрастанию числа
+      вхождений, а при равном числе вхождений – по порядку первого вхождения
+      во входном файле.
+    * Вместо номеров вхождений во всем файле надо указывать
+      `<номер строки>:<номер в строке>`
+    * Класс должен иметь имя `WordStatCountLineIndex`
+    * [Исходный код тестов](java/wordStat/WordStatCountLineIndexTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatCountLineIndexTest.jar)
 
 
 
@@ -45,24 +54,24 @@
 
 Откомпилированные тесты: [FastReverseTest.jar](artifacts/reverse/FastReverseTest.jar)
 Модификации
- * *Hex* (32-33)
+ * *Hex* (32, 33)
     * Во вводе и выводе используются числа в шестнадцатеричной системе счисления
     * Класс должен иметь имя `ReverseHex`
     * [Исходный код тестов](java/reverse/FastReverseHexTest.java)
     * [Откомпилированные тесты](artifacts/reverse/FastReverseHexTest.jar)
- * *Abc* (34-35)
+ * *Abc* (34, 35)
     * Во вводе и выводе используются числа, записаные буквами:
       нулю соответствует буква `a`, единице – `b` и так далее
     * Класс должен иметь имя `ReverseAbc`
     * [Исходный код тестов](java/reverse/FastReverseAbcTest.java)
     * [Откомпилированные тесты](artifacts/reverse/FastReverseAbcTest.jar)
- * *HexDec* (36-37)
+ * *HexDec* (36, 37)
     * На вход подаются десятичные и шестнадцатеричные числа
     * Шестнадцатеричные числа имеют префикс `0x`
     * Класс должен иметь имя `ReverseHexDec`
     * [Исходный код тестов](java/reverse/FastReverseHexDecTest.java)
     * [Откомпилированные тесты](artifacts/reverse/FastReverseHexDecTest.jar)
- * *HexAbc* (38-39)
+ * *HexAbc* (38, 39)
     * На вход подаются десятичные и шестнадцатеричные числа
     * Шестнадцатеричные числа имеют префикс `0x`
     * Десятеричные числа могут быть записаны буквами
@@ -81,14 +90,14 @@
 Откомпилированные тесты: [WordStatInputTest.jar](artifacts/wordStat/WordStatInputTest.jar)
 
 Модификации
- * *InputPrefix*
+ * *InputPrefix* (32, 33)
     * Выходной файл должен содержать все различные префиксы длины 3
       слов встречающихся во входном файле, в порядке их появления.
       Слова длины меньшей 3 игнорируются.
     * Класс должен иметь имя `WordStatInputPrefix`
     * [Исходный код тестов](java/wordStat/WordStatInputPrefixTest.java)
     * [Откомпилированные тесты](artifacts/wordStat/WordStatInputPrefixTest.jar)
- * *InputShingles*
+ * *InputShingles* (34, 35)
     * Выходной файл должен содержать все различные подстроки длины 3
       слов встречающихся во входном файле, в порядке их появления.
       Слова длины меньшей 3 игнорируются.

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.function.IntPredicate;
 
 public final class IntArray {
-    public static final int DEFAULT_CAPACITY = 16;
+    public static final int DEFAULT_CAPACITY = 8192;
     private int[] values = new int[DEFAULT_CAPACITY];
     private int size = 0;
 

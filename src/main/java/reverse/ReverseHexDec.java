@@ -5,7 +5,7 @@ import common.IntList;
 
 import java.io.IOException;
 
-public class Reverse {
+public class ReverseHexDec {
     public static void main(final String[] args) {
         final var matrix = new IntList();
         final var lines = new IntList();
@@ -15,13 +15,13 @@ public class Reverse {
         try {
             while (scanner.hasNext()) {
                 if (!scanner.skipEmpty()) {
-                    matrix.add(scanner.nextInt());
+                    matrix.add(scanner.nextHexDec());
                 }
                 if (scanner.endOfLine()) {
                     lines.add(matrix.size() - 1);
                 }
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             System.out.println("Cannot read input: " + e.getMessage());
             return;
         }

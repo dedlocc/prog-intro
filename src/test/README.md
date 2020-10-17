@@ -43,6 +43,15 @@
     * Класс должен иметь имя `WordStatCountLineIndex`
     * [Исходный код тестов](java/wordStat/WordStatCountLineIndexTest.java)
     * [Откомпилированные тесты](artifacts/wordStat/WordStatCountLineIndexTest.jar)
+ * *CountFirstIndex*
+    * В выходном файле слова должны быть упорядочены по возрастанию числа
+      вхождений, а при равном числе вхождений – по порядку первого вхождения
+      во входном файле.
+    * Вместо номеров вхождений во всем файле надо указывать
+      только первое вхождение в каждой строке
+    * Класс должен иметь имя `WordStatCountFirstIndex`
+    * [Исходный код тестов](java/wordStat/WordStatCountFirstIndexTest.java)
+    * [Откомпилированные тесты](artifacts/wordStat/WordStatCountFirstIndexTest.jar)
 
 
 

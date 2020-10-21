@@ -10,6 +10,15 @@
  * [MarkdownTest.java](java/markup/MarkdownTest.java)
  * [AbstractTest.java](java/markup/AbstractTest.java)
 
+Модификации
+ * *HTML*
+    * Дополнительно реализуйте метод `toHtml`, генерирующий HTML-разметку:
+      * выделеный текст окружается тегом `em`;
+      * сильно выделеный текст окружается тегом `strong`;
+      * зачеркнутый текст окружается тегом `s`.
+    * [Исходный код тестов](java/markup/HtmlTest.java)
+
+
 
 ## Домашнее задание 6. Подсчет слов++
 

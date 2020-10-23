@@ -9,7 +9,7 @@ public abstract class AbstractWrapper implements Markup {
         this.children = children;
     }
 
-    private void build(Consumer<Markup> format) {
+    private void build(final Consumer<Markup> format) {
         children.forEach(format);
     }
 

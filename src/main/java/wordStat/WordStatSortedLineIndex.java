@@ -12,10 +12,9 @@ import java.util.TreeMap;
 public class WordStatSortedLineIndex {
     private static boolean isDelimiter(final char c) {
         final var type = Character.getType(c);
-        return Character.UPPERCASE_LETTER != type &&
-                Character.LOWERCASE_LETTER != type &&
-                Character.DASH_PUNCTUATION != type &&
-                '\'' != c;
+        return !Character.isLetter(c) &&
+            Character.DASH_PUNCTUATION != type &&
+            '\'' != c;
     }
 
     public static void main(final String[] args) {

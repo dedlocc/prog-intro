@@ -33,7 +33,7 @@ public abstract class AbstractSpan extends AbstractWrapper implements Node {
     public void toBBCode(final StringBuilder sb) {
         final String tag = bbTag();
         sb.append('[').append(tag).append(']');
-        super.toHtml(sb);
+        super.toBBCode(sb);
         sb.append("[/").append(tag).append(']');
     }
 

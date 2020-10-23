@@ -1,6 +1,6 @@
 package markup;
 
-public final class Strikeout extends AbstractSpan {
+public final class Strikeout extends AbstractNode {
     public Strikeout(final Iterable<Markup> children) {
         super(children);
     }

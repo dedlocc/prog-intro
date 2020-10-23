@@ -1,6 +1,6 @@
 package markup;
 
-public final class Emphasis extends AbstractSpan {
+public final class Emphasis extends AbstractNode {
     public Emphasis(final Iterable<Markup> children) {
         super(children);
     }

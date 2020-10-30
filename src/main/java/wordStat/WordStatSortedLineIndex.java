@@ -11,10 +11,9 @@ import java.util.TreeMap;
 
 public class WordStatSortedLineIndex {
     private static boolean isDelimiter(final char c) {
-        final var type = Character.getType(c);
         return !Character.isLetter(c) &&
-            Character.DASH_PUNCTUATION != type &&
-            '\'' != c;
+            '\'' != c &&
+            Character.DASH_PUNCTUATION != Character.getType(c);
     }
 
     public static void main(final String[] args) {
@@ -55,7 +54,7 @@ public class WordStatSortedLineIndex {
                 writer.append(entry.getKey()).append(entry.getValue().str()).append('\n');
             }
         } catch (final IOException e) {
-            System.err.println("Cannot write to file " + args[0] + ": " + e.getMessage());
+            System.err.println("Cannot write to file " + args[1] + ": " + e.getMessage());
         }
     }
 }

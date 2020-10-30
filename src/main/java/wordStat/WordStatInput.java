@@ -68,7 +68,7 @@ public final class WordStatInput {
         try (var writer = new FileWriter(args[1], StandardCharsets.UTF_8)) {
             writer.write(sb.toString());
         } catch (IOException e) {
-            System.err.println("Cannot write to file " + args[0] + ": " + e.getMessage());
+            System.err.println("Cannot write to file " + args[1] + ": " + e.getMessage());
         }
     }
 }

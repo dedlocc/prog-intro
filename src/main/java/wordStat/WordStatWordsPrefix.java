@@ -12,8 +12,8 @@ import java.util.TreeMap;
 public final class WordStatWordsPrefix {
     private static boolean isDelimiter(final char c) {
         return !Character.isLetter(c) &&
-                Character.DASH_PUNCTUATION != Character.getType(c) &&
-                '\'' != c;
+            '\'' != c &&
+            Character.DASH_PUNCTUATION != Character.getType(c);
     }
 
     public static void main(final String[] args) {

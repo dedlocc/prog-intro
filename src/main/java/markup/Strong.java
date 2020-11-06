@@ -1,7 +1,7 @@
 package markup;
 
 public final class Strong extends AbstractNode {
-    public Strong(final Iterable<Markup> children) {
+    public Strong(final Iterable<Node> children) {
         super(children);
     }
 

@@ -1,9 +1,9 @@
 package markup;
 
 public abstract class AbstractWrapper implements Markup {
-    private final Iterable<Markup> children;
+    private final Iterable<Node> children;
 
-    public AbstractWrapper(final Iterable<Markup> children) {
+    public AbstractWrapper(final Iterable<Node> children) {
         this.children = children;
     }
 

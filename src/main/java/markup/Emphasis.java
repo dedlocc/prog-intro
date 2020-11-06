@@ -1,7 +1,7 @@
 package markup;
 
 public final class Emphasis extends AbstractNode {
-    public Emphasis(final Iterable<Markup> children) {
+    public Emphasis(final Iterable<Node> children) {
         super(children);
     }
 

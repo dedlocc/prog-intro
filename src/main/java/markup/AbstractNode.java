@@ -1,7 +1,7 @@
 package markup;
 
 public abstract class AbstractNode extends AbstractWrapper implements Node {
-    public AbstractNode(final Iterable<Markup> children) {
+    public AbstractNode(final Iterable<Node> children) {
         super(children);
     }
 

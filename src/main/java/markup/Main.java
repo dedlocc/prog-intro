@@ -22,12 +22,12 @@ public final class Main {
         final var sb = new StringBuilder();
         paragraph.toMarkdown(sb);
         System.out.println(sb.toString());
-        sb.setLength(0);
-        paragraph.toHtml(sb);
-        System.out.println(sb.toString());
-        sb.setLength(0);
-        paragraph.toBBCode(sb);
-        System.out.println(sb.toString());
+        //sb.setLength(0);
+        //paragraph.toHtml(sb);
+        //System.out.println(sb.toString());
+        //sb.setLength(0);
+        //paragraph.toBBCode(sb);
+        //System.out.println(sb.toString());
         sb.setLength(0);
         paragraph.toTex(sb);
         System.out.println(sb.toString());

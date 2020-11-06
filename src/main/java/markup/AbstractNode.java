@@ -7,10 +7,6 @@ public abstract class AbstractNode extends AbstractWrapper implements Node {
 
     protected abstract String markdownTag();
 
-    protected abstract String htmlTag();
-
-    protected abstract String bbTag();
-
     protected abstract String texTag();
 
     @Override
@@ -22,24 +18,8 @@ public abstract class AbstractNode extends AbstractWrapper implements Node {
     }
 
     @Override
-    public void toHtml(final StringBuilder sb) {
-        final String tag = htmlTag();
-        sb.append('<').append(tag).append('>');
-        super.toHtml(sb);
-        sb.append("</").append(tag).append('>');
-    }
-
-    @Override
-    public void toBBCode(final StringBuilder sb) {
-        final String tag = bbTag();
-        sb.append('[').append(tag).append(']');
-        super.toBBCode(sb);
-        sb.append("[/").append(tag).append(']');
-    }
-
-    @Override
     public void toTex(final StringBuilder sb) {
-        sb.append('/').append(texTag()).append('{');
+        sb.append('\\').append(texTag()).append('{');
         super.toTex(sb);
         sb.append('}');
     }

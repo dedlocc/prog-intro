@@ -1,7 +1,5 @@
 package markup;
 
-import java.util.function.Consumer;
-
 public abstract class AbstractWrapper implements Markup {
     private final Iterable<Markup> children;
 
@@ -9,27 +7,13 @@ public abstract class AbstractWrapper implements Markup {
         this.children = children;
     }
 
-    private void build(final Consumer<Markup> format) {
-        children.forEach(format);
-    }
-
     @Override
     public void toMarkdown(final StringBuilder sb) {
-        build(e -> e.toMarkdown(sb));
-    }
-
-    @Override
-    public void toHtml(final StringBuilder sb) {
-        build(e -> e.toHtml(sb));
-    }
-
-    @Override
-    public void toBBCode(final StringBuilder sb) {
-        build(e -> e.toBBCode(sb));
+        children.forEach(e -> e.toMarkdown(sb));
     }
 
     @Override
     public void toTex(final StringBuilder sb) {
-        build(e -> e.toTex(sb));
+        children.forEach(e -> e.toTex(sb));
     }
 }

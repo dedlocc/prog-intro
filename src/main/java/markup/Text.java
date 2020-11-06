@@ -17,16 +17,6 @@ public final class Text implements Node {
     }
 
     @Override
-    public void toHtml(final StringBuilder sb) {
-        append(sb);
-    }
-
-    @Override
-    public void toBBCode(final StringBuilder sb) {
-        append(sb);
-    }
-
-    @Override
     public void toTex(final StringBuilder sb) {
         append(sb);
     }

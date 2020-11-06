@@ -11,16 +11,6 @@ public final class Emphasis extends AbstractNode {
     }
 
     @Override
-    protected String htmlTag() {
-        return "em";
-    }
-
-    @Override
-    protected String bbTag() {
-        return "i";
-    }
-
-    @Override
     protected String texTag() {
         return "emph";
     }

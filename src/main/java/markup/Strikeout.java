@@ -11,16 +11,6 @@ public final class Strikeout extends AbstractNode {
     }
 
     @Override
-    protected String htmlTag() {
-        return "s";
-    }
-
-    @Override
-    protected String bbTag() {
-        return "s";
-    }
-
-    @Override
     protected String texTag() {
         return "textst";
     }

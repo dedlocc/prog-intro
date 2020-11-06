@@ -11,16 +11,6 @@ public final class Strong extends AbstractNode {
     }
 
     @Override
-    protected String htmlTag() {
-        return "strong";
-    }
-
-    @Override
-    protected String bbTag() {
-        return "b";
-    }
-
-    @Override
     protected String texTag() {
         return "textbf";
     }

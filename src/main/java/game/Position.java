@@ -1,4 +1,4 @@
-package classworks.cw9;
+package game;
 
 public interface Position {
     Cell get(final int r, final int c);

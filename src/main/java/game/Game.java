@@ -1,6 +1,6 @@
-package classworks.cw9;
+package game;
 
-import classworks.cw9.player.Player;
+import game.player.Player;
 
 public class Game {
     private final Player player1;

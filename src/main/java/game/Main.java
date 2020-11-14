@@ -1,7 +1,7 @@
-package classworks.cw9;
+package game;
 
-import classworks.cw9.player.RandomPlayer;
-import classworks.cw9.player.SequentialPlayer;
+import game.player.RandomPlayer;
+import game.player.SequentialPlayer;
 
 public final class Main {
     public static void main(final String[] args) {

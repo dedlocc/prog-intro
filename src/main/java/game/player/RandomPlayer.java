@@ -1,8 +1,8 @@
-package classworks.cw9.player;
+package game.player;
 
-import classworks.cw9.Cell;
-import classworks.cw9.Move;
-import classworks.cw9.Position;
+import game.Cell;
+import game.Move;
+import game.Position;
 
 import java.util.Random;
 

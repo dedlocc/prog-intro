@@ -1,4 +1,4 @@
-package classworks.cw9;
+package game;
 
 public final class Move {
     private final int row;

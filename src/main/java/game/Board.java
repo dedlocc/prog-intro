@@ -1,4 +1,4 @@
-package classworks.cw9;
+package game;
 
 import java.util.Arrays;
 

@@ -5,5 +5,5 @@ import game.Move;
 import game.Position;
 
 public interface Player {
-    Move makeMove(final Position position, final Cell cell);
+    Move move(final Position position, final Cell cell);
 }

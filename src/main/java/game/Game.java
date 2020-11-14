@@ -1,5 +1,6 @@
 package game;
 
+import game.board.Board;
 import game.player.Player;
 
 public class Game {
@@ -17,13 +18,20 @@ public class Game {
         int result;
         int currentPlayer = 1;
         while (true) {
-            result = makeMove(board, 1 == currentPlayer ? this.player1 : this.player2, currentPlayer);
+            result = move(board, 1 == currentPlayer ? player1 : player2, currentPlayer);
             if (-1 != result) {
                 break;
             }
 
+            if (enableLogging) {
+                System.out.println(board.getPosition());
+            }
+
             currentPlayer = 3 - currentPlayer;
         }
+
+        System.out.println("Final position:");
+        System.out.println(board.getPosition());
 
         System.out.print("Game result: ");
         if (0 == result) {
@@ -33,26 +41,21 @@ public class Game {
         }
 
         return result;
-        
     }
 
-    private int makeMove(final Board board, final Player player, final int no) {
-        final var move = player.makeMove(board, board.getTurn());
+    private int move(final Board board, final Player player, final int no) {
+        final var move = player.move(board.getPosition(), board.getTurn());
         if (enableLogging) {
             System.out.println("Move: " + move);
         }
 
-        final var result = board.makeMove(move);
-
-        if (enableLogging) {
-            System.out.println(board);
-        }
+        final var result = board.move(move);
 
         return switch (result) {
             case WIN -> no;
             case LOSE -> 3 - no;
             case DRAW -> 0;
-            case UNKNOWN -> -1;
+            case PASS -> -1;
             default -> throw new AssertionError("Unsupported result type: " + result);
         };
     }

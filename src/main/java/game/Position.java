@@ -1,7 +1,14 @@
 package game;
 
 public interface Position {
-    Cell get(final int r, final int c);
+    int getRows();
+
+    int getColumns();
+
+    Cell get(final int row, final int column);
 
     boolean isValid(final Move move);
+
+    @Override
+    String toString();
 }

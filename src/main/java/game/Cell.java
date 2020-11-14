@@ -3,5 +3,10 @@ package game;
 public enum Cell {
     X,
     O,
-    E,
+    EMPTY {
+        @Override
+        public String toString() {
+            return "\u00b7";
+        }
+    },
 }

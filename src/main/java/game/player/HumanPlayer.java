@@ -4,34 +4,44 @@ import game.Cell;
 import game.Move;
 import game.Position;
 
+import java.io.PrintStream;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class HumanPlayer implements Player {
+    private final PrintStream out;
     private final Scanner in;
 
-    public HumanPlayer(final Scanner in) {
+    public HumanPlayer(final PrintStream out, final Scanner in) {
+        this.out = out;
         this.in = in;
     }
 
     public HumanPlayer() {
-        this(new Scanner(System.in));
+        this(System.out, new Scanner(System.in));
     }
 
     @Override
-    public Move makeMove(final Position position, final Cell cell) {
+    public Move move(final Position position, final Cell cell) {
         while (true) {
-            System.out.println("Current position:");
-            System.out.println(position);
-            System.out.println("Enter " + cell + "'s move");
-            System.out.print("Row: ");
-            final var row = in.nextInt();
-            System.out.print("Column: ");
-            final var column = in.nextInt();
+            out.println("Current position:");
+            out.println(position);
+            out.print("Enter " + cell + "'s move (row and column): ");
+
+            final int row, column;
+            try {
+                row = in.nextInt();
+                column = in.nextInt();
+            } catch (final InputMismatchException e) {
+                out.println("Invalid move: only integers are allowed");
+                continue;
+            }
+
             final var move = new Move(row - 1, column - 1, cell);
             if (position.isValid(move)) {
                 return move;
             }
-            System.out.println("Invalid move: row " + row + ", column " + column);
+            out.println("Invalid move: row " + row + ", column " + column);
         }
     }
 }

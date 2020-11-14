@@ -6,10 +6,10 @@ import game.Position;
 
 public class SequentialPlayer implements Player {
     @Override
-    public Move makeMove(final Position position, final Cell cell) {
-        for (var row = 0; row < 3; ++row) {
-            for (var column = 0; column < 3; ++column) {
-                if (Cell.E == position.get(row, column)) {
+    public Move move(final Position position, final Cell cell) {
+        for (var row = 0; row < position.getRows(); ++row) {
+            for (var column = 0; column < position.getColumns(); ++column) {
+                if (Cell.EMPTY == position.get(row, column)) {
                     return new Move(row, column, cell);
                 }
             }

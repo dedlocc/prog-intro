@@ -1,11 +1,11 @@
 package game;
 
-import game.player.RandomPlayer;
-import game.player.SequentialPlayer;
+import game.board.MNKBoard;
+import game.player.HumanPlayer;
 
 public final class Main {
     public static void main(final String[] args) {
-        final var game = new Game(new RandomPlayer(), new SequentialPlayer(), true);
-        System.out.println("Game result: " + game.play(new Board()));
+        final var game = new Game(new HumanPlayer(), new HumanPlayer(), true);
+        System.out.println("Game result: " + game.play(new MNKBoard(3, 3, 3)));
     }
 }

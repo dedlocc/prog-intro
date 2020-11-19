@@ -2,6 +2,14 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/prog-intro/homeworks.html)
 
+## Домашнее задание 10. Выражения
+
+Модификации
+ * *Базовая*
+    * Реализуйте интерфейс [Expression](java/expression/Expression.java)
+    * [Исходный код тестов](java/expression/ExpressionTest.java)
+        * Запускать c аргументом `easy` или `hard`
+
 ## Домашнее задание 9. Игра m,n,k
 
 Модификации

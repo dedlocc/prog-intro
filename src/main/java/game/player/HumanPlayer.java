@@ -34,6 +34,7 @@ public class HumanPlayer implements Player {
                 column = in.nextInt();
             } catch (final InputMismatchException e) {
                 out.println("Invalid move: only integers are allowed");
+                in.next();
                 continue;
             }
 

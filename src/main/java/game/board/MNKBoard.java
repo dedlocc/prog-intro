@@ -9,14 +9,11 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
 
-public class MNKBoard implements Board, Position {
-    protected final int rows;
-    protected final int columns;
+public class MNKBoard implements Board {
     protected final int k;
 
     protected int emptyCells;
 
-    private final Cell[][] cells;
     private final Set<Cell> eliminated = EnumSet.noneOf(Cell.class);
     private final ClientPosition position;
 
@@ -24,13 +21,9 @@ public class MNKBoard implements Board, Position {
     private Cell turn = Cell.X;
 
 
-    public MNKBoard(final int columns, final int rows, final int k) {
-        this.rows = rows;
-        this.columns = columns;
+    public MNKBoard(final int rows, final int columns, final int k) {
         this.k = k;
-
-        cells = new Cell[rows][columns];
-        position = new ClientPosition();
+        position = new ClientPosition(rows, columns);
         reset();
     }
 
@@ -51,65 +44,27 @@ public class MNKBoard implements Board, Position {
 
     @Override
     public void reset() {
-        for (final var row : cells) {
-            Arrays.fill(row, Cell.EMPTY);
-        }
-
+        position.clear();
         eliminated.clear();
-
-        emptyCells = rows * columns;
-    }
-
-    @Override
-    public int getRows() {
-        return rows;
-    }
-
-    @Override
-    public int getColumns() {
-        return columns;
-    }
-
-    @Override
-    public Cell get(final int row, final int column) {
-        return cells[row][column];
-    }
-
-    private boolean isInBounds(final int row, final int column) {
-        return 0 <= row && row < rows && 0 <= column && column < columns;
-    }
-
-    @Override
-    public boolean isValid(final int row, final int column) {
-        return isInBounds(row, column) && Cell.EMPTY == get(row, column);
-    }
-
-    @Override
-    public boolean isValid(final Move move) {
-        return isValid(move.getRow(), move.getColumn()) && turn == move.getValue();
-    }
-
-    @Override
-    public int getPlayers() {
-        return players;
+        emptyCells = position.getRows() * position.getColumns();
     }
 
     @Override
     public Result move(final Move move) {
-        if (!isValid(move)) {
+        if (!position.isValid(move)) {
             eliminated.add(turn);
             nextTurn();
             return Result.LOSE;
         }
 
-        cells[move.getRow()][move.getColumn()] = move.getValue();
+        position.set(move.getRow(), move.getColumn(), move.getValue());
         --emptyCells;
 
-        if (isWinning(move)) {
+        if (position.isWinning(move)) {
             return Result.WIN;
         }
 
-        if (isDraw()) {
+        if (0 == emptyCells) {
             return Result.DRAW;
         }
 
@@ -122,51 +77,6 @@ public class MNKBoard implements Board, Position {
         do {
             turn = turn.next(players);
         } while (eliminated.contains(turn));
-    }
-
-    private int sequenceSize(final Move move, final int rowStep, final int columnStep) {
-        final var targetCell = move.getValue();
-        var size = 0;
-
-        for (
-            int r = move.getRow(), c = move.getColumn();
-            isInBounds(r, c) && targetCell == cells[r][c] && size <= k;
-            r += rowStep, c += columnStep
-        ) {
-            ++size;
-        }
-
-        return size;
-    }
-
-    @Override
-    public boolean isWinning(final Move move) {
-        for (final var dir : Direction.values()) {
-            if (k < sequenceSize(move, dir.rowStep, dir.columnStep) + sequenceSize(move, -dir.rowStep, -dir.columnStep)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean isDraw() {
-        return 0 == emptyCells;
-    }
-
-    @Override
-    public String toString() {
-        final var sb = new StringBuilder("\t");
-        for (int i = 1; i <= columns; ++i) {
-            sb.append(i % 10);
-        }
-        for (int i = 0; i < rows; ++i) {
-            sb.append('\n').append(1 + i).append('\t');
-            for (final var cell : cells[i]) {
-                sb.append(cell);
-            }
-        }
-        return sb.toString();
     }
 
     private enum Direction {
@@ -185,44 +95,100 @@ public class MNKBoard implements Board, Position {
     }
 
     private class ClientPosition implements Position {
+        protected final int rows;
+        protected final int columns;
+        private final Cell[][] cells;
+
+        private ClientPosition(final int rows, final int columns) {
+            this.rows = rows;
+            this.columns = columns;
+
+            cells = new Cell[rows][columns];
+        }
+
+        private void clear() {
+            for (final var row : position.cells) {
+                Arrays.fill(row, Cell.EMPTY);
+            }
+        }
+
         @Override
         public int getRows() {
-            return MNKBoard.this.getRows();
+            return rows;
         }
 
         @Override
         public int getColumns() {
-            return MNKBoard.this.getColumns();
+            return columns;
         }
 
         @Override
         public Cell get(final int row, final int column) {
-            return MNKBoard.this.get(row, column);
+            return cells[row][column];
+        }
+
+        private void set(final int row, final int column, final Cell value) {
+            cells[row][column] = value;
+        }
+
+        private boolean isInBounds(final int row, final int column) {
+            return 0 <= row && row < rows && 0 <= column && column < columns;
         }
 
         @Override
         public boolean isValid(final int row, final int column) {
-            return MNKBoard.this.isValid(row, column);
+            return isInBounds(row, column) && Cell.EMPTY == get(row, column);
         }
 
         @Override
         public boolean isValid(final Move move) {
-            return MNKBoard.this.isValid(move);
+            return isValid(move.getRow(), move.getColumn()) && turn == move.getValue();
+        }
+
+        private int sequenceSize(final Move move, final int rowStep, final int columnStep) {
+            final var targetCell = move.getValue();
+            var size = 0;
+
+            for (
+                int r = move.getRow(), c = move.getColumn();
+                isInBounds(r, c) && targetCell == cells[r][c] && size <= k;
+                r += rowStep, c += columnStep
+            ) {
+                ++size;
+            }
+
+            return size;
         }
 
         @Override
         public boolean isWinning(final Move move) {
-            return MNKBoard.this.isWinning(move);
+            for (final var dir : Direction.values()) {
+                if (k < sequenceSize(move, dir.rowStep, dir.columnStep) + sequenceSize(move, -dir.rowStep, -dir.columnStep)) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         @Override
         public int getPlayers() {
-            return MNKBoard.this.getPlayers();
+            return players;
         }
 
         @Override
         public String toString() {
-            return MNKBoard.this.toString();
+            final var sb = new StringBuilder("\t");
+            for (int i = 1; i <= columns; ++i) {
+                sb.append(i % 10);
+            }
+            for (int i = 0; i < rows; ++i) {
+                sb.append('\n').append(1 + i).append('\t');
+                for (final var cell : cells[i]) {
+                    sb.append(cell);
+                }
+            }
+            return sb.toString();
         }
     }
 }

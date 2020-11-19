@@ -1,8 +1,8 @@
 package game.player;
 
-import game.Cell;
-import game.Move;
-import game.Position;
+import game.core.Cell;
+import game.core.Move;
+import game.core.Position;
 
 import java.util.Random;
 
@@ -19,11 +19,12 @@ public class RandomPlayer implements Player {
 
     @Override
     public Move move(final Position position, final Cell cell) {
-        Move move;
+        int row, column;
         do {
-            move = new Move(random.nextInt(position.getRows()), random.nextInt(position.getColumns()), cell);
-        } while (!position.isValid(move));
+            row = random.nextInt(position.getRows());
+            column = random.nextInt(position.getColumns());
+        } while (!position.isValid(row, column));
 
-        return move;
+        return new Move(row, column, cell);
     }
 }

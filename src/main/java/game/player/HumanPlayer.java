@@ -1,8 +1,8 @@
 package game.player;
 
-import game.Cell;
-import game.Move;
-import game.Position;
+import game.core.Cell;
+import game.core.Move;
+import game.core.Position;
 
 import java.io.PrintStream;
 import java.util.InputMismatchException;

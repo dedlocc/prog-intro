@@ -1,59 +1,77 @@
 package game;
 
 import game.board.Board;
+import game.logger.Logger;
 import game.player.Player;
 
-public class Game {
-    private final Player player1;
-    private final Player player2;
-    private final boolean enableLogging;
+import java.util.Arrays;
 
-    public Game(final Player player1, final Player player2, final boolean enableLogging) {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.enableLogging = enableLogging;
+public class Game {
+    protected final Player[] players;
+    protected final Logger logger;
+    private final boolean[] eliminated;
+
+    public Game(final Player[] players, final Logger logger) {
+        this.players = players;
+        this.logger = logger;
+        this.eliminated = new boolean[players.length];
     }
 
     int play(final Board board) {
+        board.setPlayers(players.length);
         int result;
-        int currentPlayer = 1;
-        while (true) {
-            result = move(board, 1 == currentPlayer ? player1 : player2, currentPlayer);
-            if (-1 != result) {
-                break;
-            }
+        int currentPlayer = 0;
 
-            if (enableLogging) {
-                System.out.println(board.getPosition());
-            }
+        try {
+            while (true) {
+                result = move(board, players[currentPlayer], 1 + currentPlayer);
+                if (-1 != result) {
+                    break;
+                }
 
-            currentPlayer = 3 - currentPlayer;
+                logger.log(board.getPosition());
+
+                do {
+                    currentPlayer = (1 + currentPlayer) % players.length;
+                } while (eliminated[currentPlayer]);
+            }
+        } finally {
+            Arrays.fill(eliminated, false);
         }
 
-        System.out.println("Final position:");
-        System.out.println(board.getPosition());
+        logger.log("Final position:");
+        logger.log(board.getPosition());
 
-        System.out.print("Game result: ");
         if (0 == result) {
-            System.out.println("draw");
+            logger.log("Game result: draw");
         } else {
-            System.out.println("player " + result + " won");
+            logger.log("Game result: player " + result + " won");
         }
 
         return result;
     }
 
-    private int move(final Board board, final Player player, final int no) {
+    private int move(final Board board, final Player player, final int id) {
         final var move = player.move(board.getPosition(), board.getTurn());
-        if (enableLogging) {
-            System.out.println("Move: " + move);
-        }
+        logger.log("Move: " + move);
 
         final var result = board.move(move);
 
         return switch (result) {
-            case WIN -> no;
-            case LOSE -> 3 - no;
+            case WIN -> id;
+            case LOSE -> {
+                eliminated[id] = true;
+                int no2 = -1;
+                for (var i = 0; i < eliminated.length; ++i) {
+                    if (!eliminated[i]) {
+                        if (-1 != no2) {
+                            yield -1;
+                        }
+                        no2 = i;
+                    }
+                }
+                yield -1 == no2 ? 0 : no2;
+            }
             case DRAW -> 0;
             case PASS -> -1;
             default -> throw new AssertionError("Unsupported result type: " + result);

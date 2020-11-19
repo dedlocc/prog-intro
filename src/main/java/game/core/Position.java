@@ -1,4 +1,4 @@
-package game;
+package game.core;
 
 public interface Position {
     int getRows();
@@ -7,8 +7,9 @@ public interface Position {
 
     Cell get(final int row, final int column);
 
+    boolean isValid(final int row, final int column);
+
     boolean isValid(final Move move);
 
-    @Override
-    String toString();
+    int getPlayers();
 }

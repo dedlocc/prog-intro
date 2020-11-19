@@ -17,7 +17,7 @@ public class Game {
         this.eliminated = new boolean[players.length];
     }
 
-    int play(final Board board) {
+    public int play(final Board board) {
         board.setPlayers(players.length);
         int result;
         int currentPlayer = 0;

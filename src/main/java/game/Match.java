@@ -29,7 +29,7 @@ public class Match extends Game {
     }
 
     @Override
-    int play(final Board board) {
+    public int play(final Board board) {
         final var score = new int[players.length];
         var maxWins = 0;
         var round = 1;
@@ -69,7 +69,7 @@ public class Match extends Game {
         return Arrays.stream(score).mapToObj(Integer::toString).collect(Collectors.joining(":"));
     }
 
-    void shiftPlayers() {
+    private void shiftPlayers() {
         final var t = players[0];
         System.arraycopy(players, 1, players, 0, players.length - 1);
         players[players.length - 1] = t;

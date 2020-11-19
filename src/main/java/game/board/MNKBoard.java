@@ -24,7 +24,7 @@ public class MNKBoard implements Board {
     public MNKBoard(final int rows, final int columns, final int k) {
         this.k = k;
         position = new ClientPosition(rows, columns);
-        reset();
+        resetEmptyCells();
     }
 
     @Override
@@ -46,6 +46,10 @@ public class MNKBoard implements Board {
     public void reset() {
         position.clear();
         eliminated.clear();
+        resetEmptyCells();
+    }
+
+    private void resetEmptyCells() {
         emptyCells = position.getRows() * position.getColumns();
     }
 
@@ -104,10 +108,11 @@ public class MNKBoard implements Board {
             this.columns = columns;
 
             cells = new Cell[rows][columns];
+            clear();
         }
 
         private void clear() {
-            for (final var row : position.cells) {
+            for (final var row : cells) {
                 Arrays.fill(row, Cell.EMPTY);
             }
         }

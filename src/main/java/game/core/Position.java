@@ -11,5 +11,7 @@ public interface Position {
 
     boolean isValid(final Move move);
 
+    boolean isWinning(final Move move);
+
     int getPlayers();
 }

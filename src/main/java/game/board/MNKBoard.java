@@ -56,7 +56,7 @@ public class MNKBoard implements Board, Position {
         }
 
         eliminated.clear();
-        
+
         emptyCells = rows * columns;
     }
 
@@ -105,7 +105,7 @@ public class MNKBoard implements Board, Position {
         cells[move.getRow()][move.getColumn()] = move.getValue();
         --emptyCells;
 
-        if (isWin(move)) {
+        if (isWinning(move)) {
             return Result.WIN;
         }
 
@@ -139,7 +139,8 @@ public class MNKBoard implements Board, Position {
         return size;
     }
 
-    private boolean isWin(final Move move) {
+    @Override
+    public boolean isWinning(final Move move) {
         for (final var dir : Direction.values()) {
             if (k < sequenceSize(move, dir.rowStep, dir.columnStep) + sequenceSize(move, -dir.rowStep, -dir.columnStep)) {
                 return true;
@@ -207,6 +208,11 @@ public class MNKBoard implements Board, Position {
         @Override
         public boolean isValid(final Move move) {
             return MNKBoard.this.isValid(move);
+        }
+
+        @Override
+        public boolean isWinning(final Move move) {
+            return MNKBoard.this.isWinning(move);
         }
 
         @Override

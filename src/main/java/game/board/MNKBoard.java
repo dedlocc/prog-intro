@@ -5,26 +5,21 @@ import game.core.Move;
 import game.core.Position;
 import game.core.Result;
 
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
 
-public class MNKBoard implements Board {
-    protected final int k;
-
-    protected int emptyCells;
-
-    private final Set<Cell> eliminated = EnumSet.noneOf(Cell.class);
-    private final ClientPosition position;
+abstract class MNKBoard implements Board {
+    protected Cell turn = Cell.X;
+    protected MNKPosition position;
 
     private int players = 2;
-    private Cell turn = Cell.X;
+    private final Set<Cell> eliminated = EnumSet.noneOf(Cell.class);
 
+    protected MNKBoard() {
+    }
 
-    public MNKBoard(final int rows, final int columns, final int k) {
-        this.k = k;
-        position = new ClientPosition(rows, columns);
-        resetEmptyCells();
+    protected MNKBoard(final int rows, final int columns, final int k, final FillStrategy fillStrategy) {
+        position = new MNKPosition(rows, columns, k, fillStrategy);
     }
 
     @Override
@@ -46,11 +41,6 @@ public class MNKBoard implements Board {
     public void reset() {
         position.clear();
         eliminated.clear();
-        resetEmptyCells();
-    }
-
-    private void resetEmptyCells() {
-        emptyCells = position.getRows() * position.getColumns();
     }
 
     @Override
@@ -62,13 +52,12 @@ public class MNKBoard implements Board {
         }
 
         position.set(move.getRow(), move.getColumn(), move.getValue());
-        --emptyCells;
 
         if (position.isWinning(move)) {
             return Result.WIN;
         }
 
-        if (0 == emptyCells) {
+        if (position.isDraw()) {
             return Result.DRAW;
         }
 
@@ -98,23 +87,26 @@ public class MNKBoard implements Board {
         }
     }
 
-    private class ClientPosition implements Position {
-        protected final int rows;
-        protected final int columns;
+    private class MNKPosition implements Position {
         private final Cell[][] cells;
+        private final int rows;
+        private final int columns;
+        private final int k;
+        private final FillStrategy fillStrategy;
+        private int emptyCells;
 
-        private ClientPosition(final int rows, final int columns) {
+        protected MNKPosition(final int rows, final int columns, final int k, final FillStrategy fillStrategy) {
             this.rows = rows;
             this.columns = columns;
+            this.k = k;
+            this.fillStrategy = fillStrategy;
 
             cells = new Cell[rows][columns];
             clear();
         }
 
-        private void clear() {
-            for (final var row : cells) {
-                Arrays.fill(row, Cell.EMPTY);
-            }
+        protected void clear() {
+            emptyCells = fillStrategy.fill(cells);
         }
 
         @Override
@@ -132,7 +124,10 @@ public class MNKBoard implements Board {
             return cells[row][column];
         }
 
-        private void set(final int row, final int column, final Cell value) {
+        protected void set(final int row, final int column, final Cell value) {
+            if (Cell.EMPTY == cells[row][column] && Cell.EMPTY != value) {
+                --emptyCells;
+            }
             cells[row][column] = value;
         }
 
@@ -177,8 +172,8 @@ public class MNKBoard implements Board {
         }
 
         @Override
-        public int getPlayers() {
-            return players;
+        public boolean isDraw() {
+            return 0 == emptyCells;
         }
 
         @Override

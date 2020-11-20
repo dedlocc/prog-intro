@@ -5,7 +5,8 @@ public enum Cell {
     O('O'),
     D('-'),
     B('|'),
-    EMPTY('.');
+    EMPTY('.'),
+    OUT(' ');
 
     public static final int MAX_PLAYERS = 4;
 

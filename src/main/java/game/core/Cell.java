@@ -22,7 +22,9 @@ public enum Cell {
     }
 
     public Cell next(final int numOfPlayers) {
-        assert MAX_PLAYERS >= numOfPlayers;
+        if (MAX_PLAYERS < numOfPlayers) {
+            throw new IllegalArgumentException(String.format("Not enough cells to support %d players", numOfPlayers));
+        }
 
         return values()[(1 + ordinal()) % numOfPlayers];
     }

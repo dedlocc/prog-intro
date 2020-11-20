@@ -1,47 +1,48 @@
 package game;
 
-import game.board.Board;
 import game.board.RhombusBoard;
 import game.logger.SystemLogger;
-import game.player.Player;
 import game.player.RandomPlayer;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.List;
 
 public final class Main {
     public static void main(final String[] args) {
-        final var in = new Scanner(System.in);
+        final Game game = new Game(List.of(
+            new RandomPlayer(),
+            new RandomPlayer(),
+            new RandomPlayer(),
+            new RandomPlayer()
+        ), new SystemLogger());
+
+        final var reader = new PositiveIntegerReader();
 
         while (true) {
             System.out.print("Enter size and k (0 to exit): ");
             final int size, k;
-            try {
-                size = in.nextInt();
-                if (0 == size) {
-                    return;
-                }
-                k = in.nextInt();
-            } catch (final InputMismatchException e) {
-                System.out.println(e.getMessage());
-                in.next();
+
+            size = reader.read();
+
+            if (-1 == size) {
+                System.out.println("Size can only be a positive integer.");
                 continue;
+            } else if (0 == size) {
+                return;
             }
 
-            if (size <= 0 || k <= 0) {
-                System.out.println("Only positive integers are allowed.");
+            k = reader.read();
+
+            if (-1 == k) {
+                System.out.println("K can only be a positive integer.");
                 continue;
             }
 
             if (size < k) {
                 System.out
                     .println("It's always a draw when k is greater than all dimensions. Please be more creative.");
-                continue;
+            } else {
+                System.out.println("Game result: " + game.play(new RhombusBoard(size, k)));
             }
-
-            final Game game = new Game(new Player[]{new RandomPlayer(), new RandomPlayer()}, new SystemLogger());
-            final Board board = new RhombusBoard(size, k);
-            System.out.println("Game result: " + game.play(board));
         }
     }
 }

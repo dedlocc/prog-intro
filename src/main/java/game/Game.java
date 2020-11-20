@@ -5,26 +5,27 @@ import game.logger.Logger;
 import game.player.Player;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Game {
-    protected final Player[] players;
+    protected final List<Player> players;
     protected final Logger logger;
     private final boolean[] eliminated;
 
-    public Game(final Player[] players, final Logger logger) {
+    public Game(final List<Player> players, final Logger logger) {
         this.players = players;
         this.logger = logger;
-        this.eliminated = new boolean[players.length];
+        this.eliminated = new boolean[players.size()];
     }
 
     public int play(final Board board) {
-        board.setPlayers(players.length);
+        board.setPlayers(players.size());
         int result;
         int currentPlayer = 0;
 
         try {
             while (true) {
-                result = move(board, players[currentPlayer], 1 + currentPlayer);
+                result = move(board, players.get(currentPlayer), 1 + currentPlayer);
                 if (-1 != result) {
                     break;
                 }
@@ -32,7 +33,7 @@ public class Game {
                 logger.log(board.getPosition());
 
                 do {
-                    currentPlayer = (1 + currentPlayer) % players.length;
+                    currentPlayer = (1 + currentPlayer) % players.size();
                 } while (eliminated[currentPlayer]);
             }
         } finally {

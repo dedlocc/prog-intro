@@ -87,13 +87,13 @@ abstract class MNKBoard implements Board {
         }
     }
 
-    private class MNKPosition implements Position {
-        private final Cell[][] cells;
-        private final int rows;
-        private final int columns;
-        private final int k;
-        private final FillStrategy fillStrategy;
-        private int emptyCells;
+    protected class MNKPosition implements Position {
+        protected final Cell[][] cells;
+        protected final int rows;
+        protected final int columns;
+        protected final int k;
+        protected final FillStrategy fillStrategy;
+        protected int emptyCells;
 
         protected MNKPosition(final int rows, final int columns, final int k, final FillStrategy fillStrategy) {
             this.rows = rows;
@@ -145,7 +145,7 @@ abstract class MNKBoard implements Board {
             return isValid(move.getRow(), move.getColumn()) && turn == move.getValue();
         }
 
-        private int sequenceSize(final Move move, final int rowStep, final int columnStep) {
+        protected int sequenceSize(final Move move, final int rowStep, final int columnStep) {
             final var targetCell = move.getValue();
             var size = 0;
 
@@ -178,6 +178,7 @@ abstract class MNKBoard implements Board {
 
         @Override
         public String toString() {
+            // TODO correct format for big board sizes
             final var sb = new StringBuilder("\t");
             for (int i = 1; i <= columns; ++i) {
                 sb.append(i % 10);

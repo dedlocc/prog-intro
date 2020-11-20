@@ -7,35 +7,36 @@ import game.player.Player;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Tournament {
     protected int rounds;
-    protected final Player[] players;
+    protected final List<Player> players;
     protected final Logger logger;
     protected final Logger gameLogger;
 
-    public Tournament(final Player[] players, final int rounds, final Logger tournamentLogger, final Logger gameLogger) {
+    public Tournament(final List<Player> players, final int rounds, final Logger tournamentLogger, final Logger gameLogger) {
         this.players = players;
         this.rounds = rounds;
         this.logger = tournamentLogger;
         this.gameLogger = gameLogger;
     }
 
-    public Tournament(final Player[] players, final int rounds, final Logger logger) {
+    public Tournament(final List<Player> players, final int rounds, final Logger logger) {
         this(players, rounds, logger, new DummyLogger());
     }
 
     public Map<Integer, Integer> play(final Board board) {
-        final var points = new int[players.length];
+        final var points = new int[players.size()];
         var gameNumber = 0;
 
         for (int round = 1; round <= rounds; ++round) {
             logger.log(String.format("Round #%d.", round));
 
-            for (int p1 = 0; p1 < players.length; ++p1) {
-                for (int p2 = p1 + 1; p2 < players.length; ++p2) {
-                    final var result = new Game(new Player[]{players[p1], players[p2]}, gameLogger).play(board);
+            for (int p1 = 0; p1 < players.size(); ++p1) {
+                for (int p2 = p1 + 1; p2 < players.size(); ++p2) {
+                    final var result = new Game(List.of(players.get(p1), players.get(p2)), gameLogger).play(board);
                     logger.log(String.format("Game %d: %d vs %d. Final position:", ++gameNumber, 1 + p1, 1 + p2));
                     logger.log(board.getPosition());
 
@@ -56,7 +57,7 @@ public class Tournament {
             }
         }
 
-        final var indices = new Integer[players.length];
+        final var indices = new Integer[players.size()];
         Arrays.setAll(indices, i -> i);
         Arrays.sort(indices, (i, j) -> Integer.compare(points[j], points[i]));
 

@@ -13,5 +13,5 @@ public interface Position {
 
     boolean isWinning(final Move move);
 
-    int getPlayers();
+    boolean isDraw();
 }

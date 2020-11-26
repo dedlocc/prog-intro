@@ -18,6 +18,9 @@ public class ExpressionTest extends BaseTest {
     protected void test() {
         handmade();
         generated();
+        custom(1, 2, 3);
+        custom(3, 2, 1);
+        custom(10, 5, 2);
     }
 
     private void handmade() {
@@ -52,6 +55,48 @@ public class ExpressionTest extends BaseTest {
         testExpression("(10 / x)", "10 / x", new Divide(new Const(10), new Variable("x")), x -> 10 / x);
         //noinspection PointlessArithmeticExpression
         testExpression("(x / x)", "x / x", new Divide(new Variable("x"), new Variable("x")), x -> x / x);
+    }
+
+    private void custom(final int a, final int b, final int c) {
+        final var c1 = new Const(a);
+        final var c2 = new Const(b);
+        final var c3 = new Const(c);
+
+        testExpression(String.format("((%d + %d) + %d)", a, b, c), String.format("%d + %d + %d", a, b, c), new Add(new Add(c1, c2), c3), x -> a + b + c);
+        testExpression(String.format("((%s - %d) + %d)", a, b, c), String.format("%d - %d + %d", a, b, c), new Add(new Subtract(c1, c2), c3), x -> a - b + c);
+        testExpression(String.format("((%d * %d) + %d)", a, b, c), String.format("%d * %d + %d", a, b, c), new Add(new Multiply(c1, c2), c3), x -> a * b + c);
+        testExpression(String.format("((%d / %d) + %d)", a, b, c), String.format("%d / %d + %d", a, b, c), new Add(new Divide(c1, c2), c3), x -> a / b + c);
+        testExpression(String.format("(%d + (%d + %d))", a, b, c), String.format("%d + %d + %d", a, b, c), new Add(c1, new Add(c2, c3)), x -> a + b + c);
+        testExpression(String.format("(%d + (%d - %d))", a, b, c), String.format("%d + %d - %d", a, b, c), new Add(c1, new Subtract(c2, c3)), x -> a + b - c);
+        testExpression(String.format("(%d + (%d * %d))", a, b, c), String.format("%d + %d * %d", a, b, c), new Add(c1, new Multiply(c2, c3)), x -> a + b * c);
+        testExpression(String.format("(%d + (%d / %d))", a, b, c), String.format("%d + %d / %d", a, b, c), new Add(c1, new Divide(c2, c3)), x -> a + b / c);
+
+        testExpression(String.format("((%d + %d) - %d)", a, b, c), String.format("%d + %d - %d", a, b, c), new Subtract(new Add(c1, c2), c3), x -> a + b - c);
+        testExpression(String.format("((%d - %d) - %d)", a, b, c), String.format("%d - %d - %d", a, b, c), new Subtract(new Subtract(c1, c2), c3), x -> a - b - c);
+        testExpression(String.format("((%d * %d) - %d)", a, b, c), String.format("%d * %d - %d", a, b, c), new Subtract(new Multiply(c1, c2), c3), x -> a * b - c);
+        testExpression(String.format("((%d / %d) - %d)", a, b, c), String.format("%d / %d - %d", a, b, c), new Subtract(new Divide(c1, c2), c3), x -> a / b - c);
+        testExpression(String.format("(%d - (%d + %d))", a, b, c), String.format("%d - (%d + %d)", a, b, c), new Subtract(c1, new Add(c2, c3)), x -> a - (b + c));
+        testExpression(String.format("(%d - (%d - %d))", a, b, c), String.format("%d - (%d - %d)", a, b, c), new Subtract(c1, new Subtract(c2, c3)), x -> a - (b - c));
+        testExpression(String.format("(%d - (%d * %d))", a, b, c), String.format("%d - %d * %d", a, b, c), new Subtract(c1, new Multiply(c2, c3)), x -> a - b * c);
+        testExpression(String.format("(%d - (%d / %d))", a, b, c), String.format("%d - %d / %d", a, b, c), new Subtract(c1, new Divide(c2, c3)), x -> a - b / c);
+
+        testExpression(String.format("((%d + %d) * %d)", a, b, c), String.format("(%d + %d) * %d", a, b, c), new Multiply(new Add(c1, c2), c3), x -> (a + b) * c);
+        testExpression(String.format("((%d - %d) * %d)", a, b, c), String.format("(%d - %d) * %d", a, b, c), new Multiply(new Subtract(c1, c2), c3), x -> (a - b) * c);
+        testExpression(String.format("((%d * %d) * %d)", a, b, c), String.format("%d * %d * %d", a, b, c), new Multiply(new Multiply(c1, c2), c3), x -> a * b * c);
+        testExpression(String.format("((%d / %d) * %d)", a, b, c), String.format("%d / %d * %d", a, b, c), new Multiply(new Divide(c1, c2), c3), x -> a / b * c);
+        testExpression(String.format("(%d * (%d + %d))", a, b, c), String.format("%d * (%d + %d)", a, b, c), new Multiply(c1, new Add(c2, c3)), x -> a * (b + c));
+        testExpression(String.format("(%d * (%d - %d))", a, b, c), String.format("%d * (%d - %d)", a, b, c), new Multiply(c1, new Subtract(c2, c3)), x -> a * (b - c));
+        testExpression(String.format("(%d * (%d * %d))", a, b, c), String.format("%d * %d * %d", a, b, c), new Multiply(c1, new Multiply(c2, c3)), x -> a * b * c);
+        testExpression(String.format("(%d * (%d / %d))", a, b, c), String.format("%d * (%d / %d)", a, b, c), new Multiply(c1, new Divide(c2, c3)), x -> a * (b / c));
+
+        testExpression(String.format("((%d + %d) / %d)", a, b, c), String.format("(%d + %d) / %d", a, b, c), new Divide(new Add(c1, c2), c3), x -> (a + b) / c);
+        testExpression(String.format("((%d - %d) / %d)", a, b, c), String.format("(%d - %d) / %d", a, b, c), new Divide(new Subtract(c1, c2), c3), x -> (a - b) / c);
+        testExpression(String.format("((%d * %d) / %d)", a, b, c), String.format("%d * %d / %d", a, b, c), new Divide(new Multiply(c1, c2), c3), x -> a * b / c);
+        testExpression(String.format("((%d / %d) / %d)", a, b, c), String.format("%d / %d / %d", a, b, c), new Divide(new Divide(c1, c2), c3), x -> a / b / c);
+        testExpression(String.format("(%d / (%d + %d))", a, b, c), String.format("%d / (%d + %d)", a, b, c), new Divide(c1, new Add(c2, c3)), x -> a / (b + c));
+        testExpression(String.format("(%d / (%d - %d))", a, b, c), String.format("%d / (%d - %d)", a, b, c), new Divide(c1, new Subtract(c2, c3)), x -> a / (b - c));
+        testExpression(String.format("(%d / (%d * %d))", a, b, c), String.format("%d / (%d * %d)", a, b, c), new Divide(c1, new Multiply(c2, c3)), x -> a / (b * c));
+        testExpression(String.format("(%d / (%d / %d))", a, b, c), String.format("%d / (%d / %d)", a, b, c), new Divide(c1, new Divide(c2, c3)), x -> a / (b / c));
     }
 
     @SuppressWarnings("PointlessArithmeticExpression")
@@ -114,6 +159,8 @@ public class ExpressionTest extends BaseTest {
             final boolean equals = prevToString.equals(actualToString);
             assertTrue("Equals to " + prevToString, prev.equals(expression) == equals);
             assertTrue("Equals to " + prevToString, expression.equals(prev) == equals);
+            final var h1 = prev.hashCode();
+            final var h2 = expression.hashCode();
             assertTrue("Inconsistent hashCode", (prev.hashCode() == expression.hashCode()) == equals);
             counter.passed();
         }

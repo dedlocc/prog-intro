@@ -28,6 +28,8 @@ public class DoubleExpressionTest extends ExpressionTest {
         testExpression("(2 + x)", "2 + x", new Add(new Const(2), new Variable("x")), x -> 2 + x);
         testExpression("(x + 2)", "x + 2", new Add(new Variable("x"), new Const(2)), x -> x + 2);
         testExpression("((1 + 2) + 3)", "1 + 2 + 3", new Add(new Add(new Const(1), new Const(2)), new Const(3)), x -> 6);
+        testExpression("(1 + (2 * 3))", "1 + 2 * 3", new Add(new Const(1), new Multiply(new Const(2), new Const(3))), x -> 7);
+        testExpression("(1 - (2 * 3))", "1 - 2 * 3", new Subtract(new Const(1), new Multiply(new Const(2), new Const(3))), x -> -5);
         testExpression("(1 + (2 + 3))", "1 + 2 + 3", new Add(new Const(1), new Add(new Const(2), new Const(3))), x -> 6);
         testExpression("((1 - 2) - 3)", "1 - 2 - 3", new Subtract(new Subtract(new Const(1), new Const(2)), new Const(3)), x -> -4);
         testExpression("(1 - (2 - 3))", "1 - (2 - 3)", new Subtract(new Const(1), new Subtract(new Const(2), new Const(3))), x -> 2);

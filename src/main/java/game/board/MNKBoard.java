@@ -24,7 +24,7 @@ abstract class MNKBoard implements Board {
 
     @Override
     public Position getPosition() {
-        return position;
+        return position; // TODO improve cheat protection
     }
 
     @Override
@@ -186,9 +186,7 @@ abstract class MNKBoard implements Board {
         }
 
         private void addSpaces(final StringBuilder sb, final int n) {
-            for (var i = 0; i < n; ++i) {
-                sb.append(' ');
-            }
+            sb.append(" ".repeat(n));
         }
 
         @Override

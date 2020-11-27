@@ -176,19 +176,59 @@ abstract class MNKBoard implements Board {
             return 0 == emptyCells;
         }
 
+        private int numOfDigits(int n) {
+            var i = 0;
+            while (n > 0) {
+                ++i;
+                n /= 10;
+            }
+            return i;
+        }
+
+        private void addSpaces(final StringBuilder sb, final int n) {
+            for (var i = 0; i < n; ++i) {
+                sb.append(' ');
+            }
+        }
+
         @Override
         public String toString() {
-            // TODO correct format for big board sizes
-            final var sb = new StringBuilder("\t");
-            for (int i = 1; i <= columns; ++i) {
-                sb.append(i % 10);
+            final var rd = numOfDigits(rows);
+            final var cd = numOfDigits(columns);
+
+            final var sb = new StringBuilder();
+
+
+            var digits = 1;
+            var bound = 10;
+
+            addSpaces(sb, rd);
+            for (var i = 1; i <= columns; ++i) {
+                if (i == bound) {
+                    ++digits;
+                    bound *= 10;
+                }
+                sb.append(' ').append(i);
+                addSpaces(sb, cd - digits);
             }
-            for (int i = 0; i < rows; ++i) {
-                sb.append('\n').append(1 + i).append('\t');
-                for (final var cell : cells[i]) {
-                    sb.append(cell);
+
+            digits = 0;
+            bound = 10;
+
+            for (var i = 0; i < rows; ++i) {
+                sb.append('\n').append(1 + i);
+                if (1 + i == bound) {
+                    ++digits;
+                    bound *= 10;
+                }
+                addSpaces(sb, rd - digits);
+
+                for (int j = 0; j < columns; ++j) {
+                    sb.append(cells[i][j]);
+                    addSpaces(sb, cd);
                 }
             }
+
             return sb.toString();
         }
     }

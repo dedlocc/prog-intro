@@ -15,6 +15,11 @@
  * *Double* (36,7)
     * Дополнительно реализуйте интерфейс [DoubleExpression](java/expression/DoubleExpression.java)
     * [Исходный код тестов](java/expression/DoubleExpressionTest.java)
+ * *DoubleTriple* (38,9)
+    * Дополнительно реализуйте интерфейсы 
+      [DoubleExpression](java/expression/DoubleExpression.java) и
+      [TripleExpression](java/expression/TripleExpression.java)
+    * [Исходный код тестов](java/expression/DoubleTripleExpressionTest.java)
 
 ## Домашнее задание 9. Игра m,n,k
 

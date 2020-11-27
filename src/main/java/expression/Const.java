@@ -20,6 +20,11 @@ public final class Const implements CommonExpression {
     }
 
     @Override
+    public int evaluate(final int x, final int y, final int z) {
+        return (int) value;
+    }
+
+    @Override
     public double evaluate(final double x) {
         return value;
     }

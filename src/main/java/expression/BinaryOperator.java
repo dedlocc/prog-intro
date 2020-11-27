@@ -21,6 +21,11 @@ public abstract class BinaryOperator implements PrecedenceExpression {
     }
 
     @Override
+    public int evaluate(final int x, final int y, final int z) {
+        return apply(first.evaluate(x, y, z), second.evaluate(x, y, z));
+    }
+
+    @Override
     public double evaluate(final double x) {
         return apply(first.evaluate(x), second.evaluate(x));
     }
@@ -35,7 +40,7 @@ public abstract class BinaryOperator implements PrecedenceExpression {
         return String.format("%s %s %s", formatChild(first, false), getOperatorSign(), formatChild(second, true));
     }
 
-    private String formatChild(final Expression child, final boolean right) {
+    private String formatChild(final CommonExpression child, final boolean right) {
         final String miniString = child.toMiniString();
         return hasLowerPrecedence(child, right) ? String.format("(%s)", miniString) : miniString;
     }

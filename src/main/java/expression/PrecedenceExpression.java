@@ -5,7 +5,7 @@ public interface PrecedenceExpression extends CommonExpression {
         return Precedence.NORMAL;
     }
 
-    default boolean hasLowerPrecedence(final Expression expr, final boolean right) {
+    default boolean hasLowerPrecedence(final CommonExpression expr, final boolean right) {
         if (!(expr instanceof PrecedenceExpression)) {
             return false;
         }
@@ -14,7 +14,7 @@ public interface PrecedenceExpression extends CommonExpression {
         return 0 < comp || right && 0 == comp && addBracesOnSameRightPrecedence(expr);
     }
 
-    default boolean addBracesOnSameRightPrecedence(final Expression expr) {
+    default boolean addBracesOnSameRightPrecedence(final CommonExpression expr) {
         return false;
     }
 }

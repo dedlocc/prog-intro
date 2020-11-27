@@ -18,6 +18,16 @@ public class Variable implements CommonExpression {
     }
 
     @Override
+    public int evaluate(final int x, final int y, final int z) {
+        return switch (name) {
+            case "x" -> x;
+            case "y" -> y;
+            case "z" -> z;
+            default -> throw new IllegalArgumentException(String.format("No value provided for variable \"%s\"", name));
+        };
+    }
+
+    @Override
     public String toString() {
         return name;
     }

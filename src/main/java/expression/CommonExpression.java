@@ -1,4 +1,4 @@
 package expression;
 
-public interface CommonExpression extends Expression, DoubleExpression {
+public interface CommonExpression extends Expression, DoubleExpression, TripleExpression {
 }

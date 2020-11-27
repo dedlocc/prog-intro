@@ -26,7 +26,7 @@ public final class Multiply extends BinaryOperator {
     }
 
     @Override
-    public boolean addBracesOnSameRightPrecedence(final Expression expr) {
+    public boolean addBracesOnSameRightPrecedence(final CommonExpression expr) {
         return getClass() != expr.getClass();
     }
 }

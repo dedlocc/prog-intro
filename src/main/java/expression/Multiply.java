@@ -1,12 +1,17 @@
 package expression;
 
 public final class Multiply extends BinaryOperator {
-    public Multiply(final Expression first, final Expression second) {
+    public Multiply(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }
 
     @Override
     public int apply(final int a, final int b) {
+        return a * b;
+    }
+
+    @Override
+    public double apply(final double a, final double b) {
         return a * b;
     }
 

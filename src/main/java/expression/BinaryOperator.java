@@ -1,20 +1,27 @@
 package expression;
 
 public abstract class BinaryOperator implements PrecedenceExpression {
-    private final Expression first;
-    private final Expression second;
+    private final CommonExpression first;
+    private final CommonExpression second;
 
-    public BinaryOperator(final Expression first, final Expression second) {
+    public BinaryOperator(final CommonExpression first, final CommonExpression second) {
         this.first = first;
         this.second = second;
     }
 
     public abstract int apply(final int a, final int b);
 
+    public abstract double apply(final double a, final double b);
+
     public abstract String getOperatorSign();
 
     @Override
     public int evaluate(final int x) {
+        return apply(first.evaluate(x), second.evaluate(x));
+    }
+
+    @Override
+    public double evaluate(final double x) {
         return apply(first.evaluate(x), second.evaluate(x));
     }
 

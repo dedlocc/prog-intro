@@ -1,6 +1,6 @@
 package expression;
 
-public interface PrecedenceExpression extends Expression {
+public interface PrecedenceExpression extends CommonExpression {
     default Precedence getPrecedence() {
         return Precedence.NORMAL;
     }

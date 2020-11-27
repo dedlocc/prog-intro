@@ -1,6 +1,6 @@
 package expression;
 
-public class Variable implements Expression {
+public class Variable implements CommonExpression {
     private final String name;
 
     public Variable(final String name) {
@@ -9,6 +9,11 @@ public class Variable implements Expression {
 
     @Override
     public int evaluate(final int x) {
+        return x;
+    }
+
+    @Override
+    public double evaluate(final double x) {
         return x;
     }
 

@@ -13,10 +13,10 @@ public class PositiveIntegerReader {
         this(new Scanner(System.in));
     }
 
-    public int read() {
+    public int read(final boolean allowZero) {
         if (in.hasNextInt()) {
             final var input = in.nextInt();
-            if (input > 0) {
+            if (0 < input || allowZero && 0 == input) {
                 return input;
             }
         } else {
@@ -24,5 +24,9 @@ public class PositiveIntegerReader {
         }
 
         return -1;
+    }
+
+    public int read() {
+        return read(false);
     }
 }

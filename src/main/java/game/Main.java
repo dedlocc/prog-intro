@@ -21,7 +21,7 @@ public final class Main {
             System.out.print("Enter size and k (0 to exit): ");
             final int size, k;
 
-            size = reader.read();
+            size = reader.read(true);
 
             if (-1 == size) {
                 System.out.println("Size can only be a positive integer.");

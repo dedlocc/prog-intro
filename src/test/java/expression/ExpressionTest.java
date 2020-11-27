@@ -15,6 +15,12 @@ public class ExpressionTest extends BaseTest {
     }
 
     @Override
+    public void run() {
+        super.run();
+        System.err.println("Hard: " + checkMini);
+    }
+
+    @Override
     protected void test() {
         handmade();
         generated();

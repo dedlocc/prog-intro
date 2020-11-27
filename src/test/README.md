@@ -9,9 +9,12 @@
     * Реализуйте интерфейс [Expression](java/expression/Expression.java)
     * [Исходный код тестов](java/expression/ExpressionTest.java)
         * Запускать c аргументом `easy` или `hard`
- * *Triple*
+ * *Triple* (32-35)
     * Дополнительно реализуйте интерфейс [TripleExpression](java/expression/TripleExpression.java)
     * [Исходный код тестов](java/expression/TripleExpressionTest.java)
+ * *Double* (36,7)
+    * Дополнительно реализуйте интерфейс [DoubleExpression](java/expression/DoubleExpression.java)
+    * [Исходный код тестов](java/expression/DoubleExpressionTest.java)
 
 ## Домашнее задание 9. Игра m,n,k
 

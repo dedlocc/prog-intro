@@ -64,6 +64,10 @@ public class TripleExpressionTest extends ExpressionTest {
         testExpression("((y - x) - 2)", "y - x - 2", new Subtract(new Subtract(vy, vx), c2), (x, y, z) -> y - x - 2);
         testExpression("((2 / x) * y)", "2 / x * y", new Multiply(new Divide(c2, vx), vy), (x, y, z) -> 2 / x * y);
         testExpression("((1 + 1) / x)", "(1 + 1) / x", new Divide(new Add(c1, c1), vx), (x, y, z) -> (1 + 1) / x);
+        testExpression("(1 + (2 * 3))", "1 + 2 * 3", new Add(new Const(1), new Multiply(new Const(2), new Const(3))), (x, y, z) -> 7);
+        testExpression("(1 - (2 * 3))", "1 - 2 * 3", new Subtract(new Const(1), new Multiply(new Const(2), new Const(3))), (x, y, z) -> -5);
+        testExpression("(1 + (2 / 3))", "1 + 2 / 3", new Add(new Const(1), new Divide(new Const(2), new Const(3))), (x, y, z) -> 1);
+        testExpression("(1 - (2 / 3))", "1 - 2 / 3", new Subtract(new Const(1), new Divide(new Const(2), new Const(3))), (x, y, z) -> 1);
         testExpression("(2 + (z + (1 + 1)))", "2 + z + 1 + 1", new Add(c2, new Add(vz, new Add(c1, c1))), (x, y, z) -> 2 + z + 1 + 1);
         testExpression("(1 - ((2 * x) + y))", "1 - (2 * x + y)", new Subtract(c1, new Add(new Multiply(c2, vx), vy)), (x, y, z) -> 1 - (2 * x + y));
         testExpression("(1 * (z / (y - x)))", "1 * (z / (y - x))", new Multiply(c1, new Divide(vz, new Subtract(vy, vx))), (x, y, z) -> 1 * (z / (y - x)));

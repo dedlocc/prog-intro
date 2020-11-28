@@ -1,7 +1,6 @@
 package expression.parser;
 
 import expression.BaseTest;
-import expression.CommonExpression;
 import expression.TripleExpression;
 
 import java.util.ArrayList;
@@ -102,7 +101,7 @@ public class ParserTest extends BaseTest {
                 counter.passed();
             }
             counter.nextTest();
-            final CommonExpression result = parser.parse(expression);
+            final TripleExpression result = parser.parse(expression);
             counter.passed();
             return result;
         } catch (final Exception e) {

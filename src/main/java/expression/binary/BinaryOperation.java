@@ -1,4 +1,7 @@
-package expression;
+package expression.binary;
+
+import expression.CommonExpression;
+import expression.PrecedenceAware;
 
 public abstract class BinaryOperation implements CommonExpression, PrecedenceAware {
     private final CommonExpression first;

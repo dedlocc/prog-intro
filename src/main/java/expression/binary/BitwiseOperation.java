@@ -1,4 +1,7 @@
-package expression;
+package expression.binary;
+
+import expression.CommonExpression;
+import expression.DoubleNotSupportedException;
 
 public abstract class BitwiseOperation extends BinaryOperation {
     public BitwiseOperation(final CommonExpression first, final CommonExpression second) {
@@ -7,6 +10,6 @@ public abstract class BitwiseOperation extends BinaryOperation {
 
     @Override
     public double apply(final double a, final double b) {
-        throw new UnsupportedOperationException("Cannot apply bitwise operation to double values");
+        throw new DoubleNotSupportedException("Cannot apply bitwise operation to double values");
     }
 }

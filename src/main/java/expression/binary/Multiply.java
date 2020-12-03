@@ -1,23 +1,27 @@
-package expression;
+package expression.binary;
 
-public final class Divide extends BinaryOperation {
-    public Divide(final CommonExpression first, final CommonExpression second) {
+import expression.CommonExpression;
+import expression.Precedence;
+import expression.PrecedenceAware;
+
+public final class Multiply extends BinaryOperation {
+    public Multiply(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }
 
     @Override
     public int apply(final int a, final int b) {
-        return a / b;
+        return a * b;
     }
 
     @Override
     public double apply(final double a, final double b) {
-        return a / b;
+        return a * b;
     }
 
     @Override
     public String getOperatorSign() {
-        return "/";
+        return "*";
     }
 
     @Override
@@ -27,6 +31,6 @@ public final class Divide extends BinaryOperation {
 
     @Override
     public boolean lowerIfSame(final PrecedenceAware expr) {
-        return true;
+        return getClass() != expr.getClass();
     }
 }

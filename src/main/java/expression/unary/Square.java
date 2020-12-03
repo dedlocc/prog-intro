@@ -1,6 +1,8 @@
-package expression;
+package expression.unary;
 
-public class Square extends UnaryOperation {
+import expression.CommonExpression;
+
+public final class Square extends UnaryOperation {
     public Square(final CommonExpression operand) {
         super(operand);
     }

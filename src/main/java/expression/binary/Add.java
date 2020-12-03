@@ -1,4 +1,7 @@
-package expression;
+package expression.binary;
+
+import expression.CommonExpression;
+import expression.Precedence;
 
 public final class Add extends BinaryOperation {
     public Add(final CommonExpression first, final CommonExpression second) {

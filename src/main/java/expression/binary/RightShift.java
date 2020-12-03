@@ -1,6 +1,9 @@
-package expression;
+package expression.binary;
 
-public class RightShift extends BitwiseOperation {
+import expression.CommonExpression;
+import expression.Precedence;
+
+public final class RightShift extends BitwiseOperation {
     public RightShift(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }

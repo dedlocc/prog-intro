@@ -1,6 +1,9 @@
-package expression;
+package expression.binary;
 
-public class And extends BitwiseOperation {
+import expression.CommonExpression;
+import expression.Precedence;
+
+public final class And extends BitwiseOperation {
     public And(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }

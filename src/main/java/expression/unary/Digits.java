@@ -1,6 +1,9 @@
-package expression;
+package expression.unary;
 
-public class Digits extends UnaryOperation {
+import expression.CommonExpression;
+import expression.DoubleNotSupportedException;
+
+public final class Digits extends UnaryOperation {
     public Digits(final CommonExpression operand) {
         super(operand);
     }
@@ -19,7 +22,7 @@ public class Digits extends UnaryOperation {
 
     @Override
     public double apply(final double value) {
-        throw new UnsupportedOperationException("Cannot apply digits to a double value");
+        throw new DoubleNotSupportedException("Cannot apply 'digits' to a double value");
     }
 
     @Override

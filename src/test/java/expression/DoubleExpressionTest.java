@@ -1,5 +1,10 @@
 package expression;
 
+import expression.binary.Add;
+import expression.binary.Divide;
+import expression.binary.Multiply;
+import expression.binary.Subtract;
+
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
@@ -21,7 +26,7 @@ public class DoubleExpressionTest extends ExpressionTest {
         testExpression("x", "x", new Variable("x"), x -> x);
         testExpression("(x + 2)", "x + 2", new Add(new Variable("x"), new Const(2)), x -> x + 2);
         testExpression("(2 - x)", "2 - x", new Subtract(new Const(2), new Variable("x")), x -> 2 - x);
-        testExpression("(3 * x)", "3 * x", new Multiply(new Const(3), new Variable("x")), x -> 3*x);
+        testExpression("(3 * x)", "3 * x", new Multiply(new Const(3), new Variable("x")), x -> 3 * x);
         testExpression("(x + x)", "x + x", new Add(new Variable("x"), new Variable("x")), x -> x + x);
         testExpression("(x / -2)", "x / -2", new Divide(new Variable("x"), new Const(-2)), x -> -x / 2);
         testExpression("(x + x)", "x + x", new Add(new Variable("x"), new Variable("x")), x -> x + x);
@@ -38,13 +43,13 @@ public class DoubleExpressionTest extends ExpressionTest {
         testExpression("((10 / 2) / 3)", "10 / 2 / 3", new Divide(new Divide(new Const(10), new Const(2)), new Const(3)), x -> 5.0 / 3);
         testExpression("(10 / (3 / 2))", "10 / (3 / 2)", new Divide(new Const(10), new Divide(new Const(3), new Const(2))), x -> 20.0 / 3);
         testExpression(
-                "((x * x) + ((x - 1) / 10))",
-                "x * x + (x - 1) / 10",
-                new Add(
-                        new Multiply(new Variable("x"), new Variable("x")),
-                        new Divide(new Subtract(new Variable("x"), new Const(1)), new Const(10))
-                ),
-                x -> x * x + (x - 1) / 10
+            "((x * x) + ((x - 1) / 10))",
+            "x * x + (x - 1) / 10",
+            new Add(
+                new Multiply(new Variable("x"), new Variable("x")),
+                new Divide(new Subtract(new Variable("x"), new Const(1)), new Const(10))
+            ),
+            x -> x * x + (x - 1) / 10
         );
         testExpression("(x * -1000000000)", "x * -1000000000", new Multiply(new Variable("x"), new Const(-1_000_000_000)), x -> x * -1_000_000_000);
         testExpression("(x * -1.0E12)", "x * -1.0E12", new Multiply(new Variable("x"), new Const(-1_000_000_000_000.0)), x -> x * -1_000_000_000_000.0);

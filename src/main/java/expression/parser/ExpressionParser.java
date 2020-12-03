@@ -1,9 +1,10 @@
 package expression.parser;
 
 import expression.*;
+import expression.binary.*;
+import expression.unary.*;
 
 import java.text.CharacterIterator;
-import java.text.StringCharacterIterator;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
@@ -11,11 +12,11 @@ import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
 public final class ExpressionParser implements Parser {
-    private CharacterIterator chars;
+    private CharSource chars;
 
     @Override
-    public CommonExpression parse(final String expression) throws ParseException {
-        chars = new StringCharacterIterator(expression);
+    public CommonExpression parse(final String expression) throws UnexpectedTokenException {
+        chars = new CharSequenceSource(expression);
         return parseExpression(CharacterIterator.DONE);
     }
 
@@ -23,41 +24,36 @@ public final class ExpressionParser implements Parser {
         final Deque<CommonExpression> elements = new ArrayDeque<>();
         final Deque<BiOperation> operations = new ArrayDeque<>();
 
-        elements.push(parseElement());
-        skipWhitespace();
+        while (!chars.test(until)) {
+            if (!elements.isEmpty()) {
+                final var operation = parseOperation();
 
-        while (until != chars.current()) {
-            final var operation = parseOperation();
+                applyOperations(elements, operations, () -> operation.hasLowerPrecedence(operations.peek(), true));
 
-            if (!operations.isEmpty() && 0 >= operation.precedence.compareTo(operations.peek().precedence)) {
-                assert elements.size() == operations.size() + 1;
-
-                var element = elements.pop();
-
-                while (!elements.isEmpty() && !operation.hasLowerPrecedence(operations.peek(), true)) {
-                    element = operations.pop().apply(elements.pop(), element);
-                }
-
-                elements.push(element);
+                operations.push(operation);
             }
 
-            operations.push(operation);
             elements.push(parseElement());
-
             skipWhitespace();
         }
 
-        applyOperations(elements, operations);
+        applyOperations(elements, operations, Condition::never);
 
         return elements.pop();
     }
 
-    private static void applyOperations(final Deque<CommonExpression> elements, final Deque<BiOperation> operations) {
-        assert elements.size() == operations.size() + 1;
+    private static void applyOperations(
+        final Deque<CommonExpression> elements,
+        final Deque<BiOperation> operations,
+        final Condition breakCondition
+    ) {
+        if (operations.isEmpty() || breakCondition.test()) {
+            return;
+        }
 
         var element = elements.pop();
 
-        while (!elements.isEmpty()) {
+        while (!elements.isEmpty() && !breakCondition.test()) {
             element = operations.pop().apply(elements.pop(), element);
         }
 
@@ -67,78 +63,70 @@ public final class ExpressionParser implements Parser {
     private CommonExpression parseElement() {
         skipWhitespace();
 
-        if (match('(')) {
-            final var e = parseExpression(')');
-            chars.next();
-            return e;
+        if (chars.test('(')) {
+            return parseExpression(')');
         }
 
-        final var index = chars.getIndex();
+        final var pos = chars.position();
 
-        final var minus = match('-');
+        final var minus = chars.test('-');
 
-        if (match(Character::isDigit, false)) {
+        if (chars.test(Character::isDigit, false)) {
             return parseInteger(minus);
         }
 
         if (minus) {
-            chars.setIndex(index);
+            chars.reset(pos);
         }
 
         for (final var entry : unaryOperations.entrySet()) {
-            if (match(entry.getKey())) {
+            if (chars.test(entry.getKey())) {
                 return entry.getValue().apply(parseElement());
             }
-            chars.setIndex(index);
         }
 
-        if (match(Character::isLetter, false)) {
+        if (chars.test(Character::isLetter, false)) {
             return parseVariable();
         }
 
-        throw new ParseException(
-            String.format("Unexpected token '%c' at position %d", chars.current(), chars.getIndex()));
+        throw new UnexpectedTokenException(chars.current(), chars.position());
     }
 
     private BiOperation parseOperation() {
         skipWhitespace();
 
-        final var index = chars.getIndex();
-
         for (final var entry : binaryOperations.entrySet()) {
-            if (match(entry.getKey())) {
+            if (chars.test(entry.getKey())) {
                 return entry.getValue();
             }
-            chars.setIndex(index);
         }
 
-        throw new ParseException(String
-            .format("Unexpected token '%s' at position %d", chars.current(), chars.getIndex()));
+        throw new UnexpectedTokenException(chars.current(), chars.position());
     }
 
     private Const parseInteger(final boolean negative) {
         final int limit = negative ? Integer.MIN_VALUE : -Integer.MAX_VALUE;
-        long result = 0;
+        final int secondLimit = limit / 10;
+        int result = 0;
 
-        while (Character.isDigit(chars.current())) {
-            result *= 10;
-            result -= chars.current() - '0';
-            chars.next();
+        while (chars.test(Character::isDigit)) {
+            final var digit = chars.current() - '0';
 
-            if (result < limit) {
-                throw new IntegerParseException("Integer overflow");
+            if (result < secondLimit || (result *= 10) < limit + digit) {
+                throw new OverflowException("Too long integer (only 32 bits are allowed)");
             }
+
+            result -= digit;
         }
 
         return new Const(negative ? result : -result);
     }
 
-    private Variable parseVariable() throws VariableParseException {
+    private Variable parseVariable() {
         final var name = new StringBuilder();
 
-        while (Character.isLetter(chars.current())) {
+        while (chars.test(Character::isLetter)) {
             name.append(chars.current());
-            chars.next();
         }
 
         return new Variable(name.toString());
@@ -146,44 +134,17 @@ public final class ExpressionParser implements Parser {
 
     private void skipWhitespace() {
         //noinspection StatementWithEmptyBody
-        while (match(Character::isWhitespace)) {
+        while (chars.test(Character::isWhitespace)) {
         }
-    }
-
-    private boolean match(final CharMatcher matcher, final boolean nextIfMatches) {
-        if (matcher.match(chars.current())) {
-            if (nextIfMatches) {
-                chars.next();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    private boolean match(final CharMatcher matcher) {
-        return match(matcher, true);
-    }
-
-    private boolean match(final char expected, final boolean nextIfMatches) {
-        return match(c -> c == expected, nextIfMatches);
-    }
-
-    private boolean match(final char expected) {
-        return match(c -> c == expected);
-    }
-
-    private boolean match(final CharSequence expected) {
-        for (var i = 0; i < expected.length(); ++i) {
-            if (!match(expected.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
     }
 
     @FunctionalInterface
-    interface CharMatcher {
-        boolean match(char c);
+    interface Condition {
+        boolean test();
+
+        static boolean never() {
+            return false;
+        }
     }
 
     private static final Map<String, UnaryOperator<CommonExpression>> unaryOperations = Map.of(
@@ -205,7 +166,6 @@ public final class ExpressionParser implements Parser {
         "<<", new BiOperation(LeftShift::new, Precedence.SHIFT),
         ">>", new BiOperation(RightShift::new, Precedence.SHIFT)
     );
-
 
     private static class BiOperation implements PrecedenceAware, BinaryOperator<CommonExpression> {
 

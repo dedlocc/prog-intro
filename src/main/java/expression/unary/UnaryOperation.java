@@ -1,4 +1,7 @@
-package expression;
+package expression.unary;
+
+import expression.CommonExpression;
+import expression.binary.BinaryOperation;
 
 public abstract class UnaryOperation implements CommonExpression {
     private final CommonExpression operand;

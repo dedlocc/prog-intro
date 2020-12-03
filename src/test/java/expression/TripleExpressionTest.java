@@ -1,5 +1,10 @@
 package expression;
 
+import expression.binary.Add;
+import expression.binary.Divide;
+import expression.binary.Multiply;
+import expression.binary.Subtract;
+
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
@@ -33,12 +38,12 @@ public class TripleExpressionTest extends ExpressionTest {
         testExpression("((10 / 2) / 3)", "10 / 2 / 3", new Divide(new Divide(new Const(10), new Const(2)), new Const(3)), (x, y, z) -> 10 / 2 / 3);
         testExpression("(10 / (3 / 2))", "10 / (3 / 2)", new Divide(new Const(10), new Divide(new Const(3), new Const(2))), (x, y, z) -> 10);
         testExpression(
-                "((x * y) + ((z - 1) / 10))",
-                "x * y + (z - 1) / 10", new Add(
-                        new Multiply(new Variable("x"), new Variable("y")),
-                        new Divide(new Subtract(new Variable("z"), new Const(1)), new Const(10))
-                ),
-                (x, y, z) -> x * y + (z - 1) / 10
+            "((x * y) + ((z - 1) / 10))",
+            "x * y + (z - 1) / 10", new Add(
+                new Multiply(new Variable("x"), new Variable("y")),
+                new Divide(new Subtract(new Variable("z"), new Const(1)), new Const(10))
+            ),
+            (x, y, z) -> x * y + (z - 1) / 10
         );
         testExpression("(x + y)", "x + y", new Add(new Variable("x"), new Variable("y")), (x, y, z) -> x + y);
         testExpression("(x + y)", "x + y", new Add(new Variable("x"), new Variable("y")), (x, y, z) -> x + y);
@@ -87,7 +92,8 @@ public class TripleExpressionTest extends ExpressionTest {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 for (int k = 0; k < 10; k++) {
-                    assertEquals(String.format("f(%d, %d, %d)", i, j, k), evaluate(expected, i, j, k), evaluate(actual, i, j, k));
+                    assertEquals(String
+                        .format("f(%d, %d, %d)", i, j, k), evaluate(expected, i, j, k), evaluate(actual, i, j, k));
                 }
             }
         }

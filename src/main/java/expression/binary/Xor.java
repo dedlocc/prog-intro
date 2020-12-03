@@ -1,6 +1,9 @@
-package expression;
+package expression.binary;
 
-public class Xor extends BitwiseOperation {
+import expression.CommonExpression;
+import expression.Precedence;
+
+public final class Xor extends BitwiseOperation {
     public Xor(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }

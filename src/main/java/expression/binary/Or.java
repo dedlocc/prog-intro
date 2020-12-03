@@ -1,6 +1,9 @@
-package expression;
+package expression.binary;
 
-public class Or extends BitwiseOperation {
+import expression.CommonExpression;
+import expression.Precedence;
+
+public final class Or extends BitwiseOperation {
     public Or(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }

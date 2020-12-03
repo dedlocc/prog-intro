@@ -1,6 +1,6 @@
 package expression;
 
-public class Variable implements CommonExpression {
+public final class Variable implements CommonExpression {
     private final String name;
 
     public Variable(final String name) {
@@ -13,7 +13,7 @@ public class Variable implements CommonExpression {
             return x;
         }
 
-        throw noValueError();
+        throw new NoValueException();
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Variable implements CommonExpression {
             return x;
         }
 
-        throw noValueError();
+        throw new NoValueException();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class Variable implements CommonExpression {
             case "x" -> x;
             case "y" -> y;
             case "z" -> z;
-            default -> throw noValueError();
+            default -> throw new NoValueException();
         };
     }
 
@@ -50,7 +50,9 @@ public class Variable implements CommonExpression {
         return name.hashCode();
     }
 
-    protected IllegalArgumentException noValueError() {
-        return new IllegalArgumentException(String.format("No value provided for variable \"%s\"", name));
+    public class NoValueException extends ExpressionException {
+        private NoValueException() {
+            super(String.format("No value provided for variable \"%s\"", name), "no value");
+        }
     }
 }

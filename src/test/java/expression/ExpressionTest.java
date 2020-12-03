@@ -1,5 +1,10 @@
 package expression;
 
+import expression.binary.Add;
+import expression.binary.Divide;
+import expression.binary.Multiply;
+import expression.binary.Subtract;
+
 import java.util.ArrayList;
 import java.util.List;
 

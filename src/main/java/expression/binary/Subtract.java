@@ -1,4 +1,8 @@
-package expression;
+package expression.binary;
+
+import expression.CommonExpression;
+import expression.Precedence;
+import expression.PrecedenceAware;
 
 public final class Subtract extends BinaryOperation {
     public Subtract(final CommonExpression first, final CommonExpression second) {

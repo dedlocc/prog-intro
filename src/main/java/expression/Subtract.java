@@ -1,6 +1,6 @@
 package expression;
 
-public final class Subtract extends BinaryOperator {
+public final class Subtract extends BinaryOperation {
     public Subtract(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }
@@ -21,7 +21,12 @@ public final class Subtract extends BinaryOperator {
     }
 
     @Override
-    public boolean addBracesOnSameRightPrecedence(final CommonExpression expr) {
+    public Precedence getPrecedence() {
+        return Precedence.ADD;
+    }
+
+    @Override
+    public boolean lowerIfSame(final PrecedenceAware expr) {
         return true;
     }
 }

@@ -1,6 +1,6 @@
 package expression;
 
-public final class Add extends BinaryOperator {
+public final class Add extends BinaryOperation {
     public Add(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }
@@ -18,5 +18,10 @@ public final class Add extends BinaryOperator {
     @Override
     public String getOperatorSign() {
         return "+";
+    }
+
+    @Override
+    public Precedence getPrecedence() {
+        return Precedence.ADD;
     }
 }

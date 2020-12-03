@@ -1,7 +1,11 @@
 package expression;
 
 public enum Precedence {
-    LOW,
-    NORMAL,
-    HIGH,
+    SHIFT,
+    OR,
+    XOR,
+    AND,
+    ADD,
+    MULTIPLY,
+    UNARY,
 }

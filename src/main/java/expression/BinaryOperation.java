@@ -1,10 +1,10 @@
 package expression;
 
-public abstract class BinaryOperator implements PrecedenceExpression {
+public abstract class BinaryOperation implements CommonExpression, PrecedenceAware {
     private final CommonExpression first;
     private final CommonExpression second;
 
-    public BinaryOperator(final CommonExpression first, final CommonExpression second) {
+    public BinaryOperation(final CommonExpression first, final CommonExpression second) {
         this.first = first;
         this.second = second;
     }
@@ -55,7 +55,7 @@ public abstract class BinaryOperator implements PrecedenceExpression {
             return false;
         }
 
-        final var o = (BinaryOperator) other;
+        final var o = (BinaryOperation) other;
         return first.equals(o.first) && second.equals(o.second);
     }
 

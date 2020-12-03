@@ -1,17 +1,22 @@
 package expression;
 
+import expression.parser.ExpressionParser;
+
 import java.util.Scanner;
 
 public final class Main {
     public static void main(final String[] args) {
-        final var x = new Variable("x");
-        final var expr = new Add(new Subtract(new Multiply(x, x), new Multiply(new Const(2), x)), new Const(1));
-
         final var in = new Scanner(System.in);
-        System.out.print("Enter X: ");
+        final var expression = in.nextLine();
+        final var parser = new ExpressionParser();
+
+        System.out.println(parser.parse(expression));
+        System.out.println(parser.parse(expression).toMiniString());
+
         while (true) {
+            System.out.print("Enter X: ");
             if (in.hasNextInt()) {
-                System.out.printf("Answer: %d%n", expr.evaluate(in.nextInt()));
+                System.out.println(parser.parse(expression).evaluate(in.nextInt()));
                 break;
             } else {
                 System.out.println();

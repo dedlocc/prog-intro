@@ -1,6 +1,6 @@
 package expression;
 
-public final class Multiply extends BinaryOperator {
+public final class Multiply extends BinaryOperation {
     public Multiply(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }
@@ -22,11 +22,11 @@ public final class Multiply extends BinaryOperator {
 
     @Override
     public Precedence getPrecedence() {
-        return Precedence.HIGH;
+        return Precedence.MULTIPLY;
     }
 
     @Override
-    public boolean addBracesOnSameRightPrecedence(final CommonExpression expr) {
+    public boolean lowerIfSame(final PrecedenceAware expr) {
         return getClass() != expr.getClass();
     }
 }

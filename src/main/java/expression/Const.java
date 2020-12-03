@@ -1,37 +1,30 @@
 package expression;
 
 public final class Const implements CommonExpression {
-    private final double value;
-    private final boolean isInt;
+    private final Number value;
 
-    public Const(final int value) {
+    public Const(final Number value) {
         this.value = value;
-        this.isInt = true;
-    }
-
-    public Const(final double value) {
-        this.value = value;
-        this.isInt = false;
     }
 
     @Override
     public int evaluate(final int x) {
-        return (int) value;
+        return value.intValue();
     }
 
     @Override
     public int evaluate(final int x, final int y, final int z) {
-        return (int) value;
+        return value.intValue();
     }
 
     @Override
     public double evaluate(final double x) {
-        return value;
+        return value.doubleValue();
     }
 
     @Override
     public String toString() {
-        return isInt ? Integer.toString((int) value) : Double.toString(value);
+        return value.toString();
     }
 
     @Override
@@ -44,12 +37,11 @@ public final class Const implements CommonExpression {
             return false;
         }
 
-        final var o = (Const) other;
-        return value == o.value && isInt == o.isInt;
+        return value.equals(((Const) other).value);
     }
 
     @Override
     public int hashCode() {
-        return 31 * Double.hashCode(value) + Boolean.hashCode(isInt);
+        return value.hashCode();
     }
 }

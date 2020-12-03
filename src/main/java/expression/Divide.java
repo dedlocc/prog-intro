@@ -1,6 +1,6 @@
 package expression;
 
-public final class Divide extends BinaryOperator {
+public final class Divide extends BinaryOperation {
     public Divide(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }
@@ -22,11 +22,11 @@ public final class Divide extends BinaryOperator {
 
     @Override
     public Precedence getPrecedence() {
-        return Precedence.HIGH;
+        return Precedence.MULTIPLY;
     }
 
     @Override
-    public boolean addBracesOnSameRightPrecedence(final CommonExpression expr) {
+    public boolean lowerIfSame(final PrecedenceAware expr) {
         return true;
     }
 }

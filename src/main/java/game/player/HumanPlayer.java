@@ -6,7 +6,6 @@ import game.core.Move;
 import game.core.Position;
 
 import java.io.PrintStream;
-import java.util.Scanner;
 
 public class HumanPlayer implements Player {
     private final PrintStream out;
@@ -18,7 +17,7 @@ public class HumanPlayer implements Player {
     }
 
     public HumanPlayer() {
-        this(System.out, new PositiveIntegerReader(new Scanner(System.in)));
+        this(System.out, new PositiveIntegerReader());
     }
 
     @Override

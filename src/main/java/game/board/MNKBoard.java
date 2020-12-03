@@ -9,22 +9,34 @@ import java.util.EnumSet;
 import java.util.Set;
 
 abstract class MNKBoard implements Board {
-    protected Cell turn = Cell.X;
+    protected final Cell[][] cells;
+    protected final int rows;
+    protected final int columns;
+    protected final int k;
+    protected final FillStrategy fillStrategy;
+    protected int emptyCells;
+
     protected MNKPosition position;
 
+    protected Cell turn = Cell.X;
     private int players = 2;
     private final Set<Cell> eliminated = EnumSet.noneOf(Cell.class);
 
-    protected MNKBoard() {
-    }
-
     protected MNKBoard(final int rows, final int columns, final int k, final FillStrategy fillStrategy) {
-        position = new MNKPosition(rows, columns, k, fillStrategy);
+        this.rows = rows;
+        this.columns = columns;
+        this.k = k;
+        this.fillStrategy = fillStrategy;
+
+        cells = new Cell[rows][columns];
+        reset();
+
+        position = new MNKPosition();
     }
 
     @Override
     public Position getPosition() {
-        return position; // TODO improve cheat protection
+        return position;
     }
 
     @Override
@@ -39,8 +51,8 @@ abstract class MNKBoard implements Board {
 
     @Override
     public void reset() {
-        position.clear();
         eliminated.clear();
+        emptyCells = fillStrategy.fill(cells);
     }
 
     @Override
@@ -51,7 +63,7 @@ abstract class MNKBoard implements Board {
             return Result.LOSE;
         }
 
-        position.set(move.getRow(), move.getColumn(), move.getValue());
+        set(move.getRow(), move.getColumn(), move.getValue());
 
         if (position.isWinning(move)) {
             return Result.WIN;
@@ -64,6 +76,13 @@ abstract class MNKBoard implements Board {
         nextTurn();
 
         return Result.PASS;
+    }
+
+    protected void set(final int row, final int column, final Cell value) {
+        if (Cell.EMPTY == cells[row][column] && Cell.EMPTY != value) {
+            --emptyCells;
+        }
+        cells[row][column] = value;
     }
 
     private void nextTurn() {
@@ -87,28 +106,7 @@ abstract class MNKBoard implements Board {
         }
     }
 
-    protected class MNKPosition implements Position {
-        protected final Cell[][] cells;
-        protected final int rows;
-        protected final int columns;
-        protected final int k;
-        protected final FillStrategy fillStrategy;
-        protected int emptyCells;
-
-        protected MNKPosition(final int rows, final int columns, final int k, final FillStrategy fillStrategy) {
-            this.rows = rows;
-            this.columns = columns;
-            this.k = k;
-            this.fillStrategy = fillStrategy;
-
-            cells = new Cell[rows][columns];
-            clear();
-        }
-
-        protected void clear() {
-            emptyCells = fillStrategy.fill(cells);
-        }
-
+    private class MNKPosition implements Position {
         @Override
         public int getRows() {
             return rows;
@@ -122,13 +120,6 @@ abstract class MNKBoard implements Board {
         @Override
         public Cell get(final int row, final int column) {
             return cells[row][column];
-        }
-
-        protected void set(final int row, final int column, final Cell value) {
-            if (Cell.EMPTY == cells[row][column] && Cell.EMPTY != value) {
-                --emptyCells;
-            }
-            cells[row][column] = value;
         }
 
         private boolean isInBounds(final int row, final int column) {
@@ -145,7 +136,7 @@ abstract class MNKBoard implements Board {
             return isValid(move.getRow(), move.getColumn()) && turn == move.getValue();
         }
 
-        protected int sequenceSize(final Move move, final int rowStep, final int columnStep) {
+        private int sequenceSize(final Move move, final int rowStep, final int columnStep) {
             final var targetCell = move.getValue();
             var size = 0;
 

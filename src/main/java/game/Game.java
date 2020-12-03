@@ -19,25 +19,23 @@ public class Game {
     }
 
     public int play(final Board board) {
+        Arrays.fill(eliminated, false);
         board.setPlayers(players.size());
+
         int result;
         int currentPlayer = 0;
 
-        try {
-            while (true) {
-                result = move(board, players.get(currentPlayer), 1 + currentPlayer);
-                if (-1 != result) {
-                    break;
-                }
-
-                logger.log(board.getPosition());
-
-                do {
-                    currentPlayer = (1 + currentPlayer) % players.size();
-                } while (eliminated[currentPlayer]);
+        while (true) {
+            result = move(board, players.get(currentPlayer), 1 + currentPlayer);
+            if (-1 != result) {
+                break;
             }
-        } finally {
-            Arrays.fill(eliminated, false);
+
+            logger.log(board.getPosition());
+
+            do {
+                currentPlayer = (1 + currentPlayer) % players.size();
+            } while (eliminated[currentPlayer]);
         }
 
         logger.log("Final position:");

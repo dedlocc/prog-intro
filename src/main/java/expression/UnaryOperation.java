@@ -1,6 +1,6 @@
 package expression;
 
-public abstract class UnaryOperation implements CommonExpression, PrecedenceAware {
+public abstract class UnaryOperation implements CommonExpression {
     private final CommonExpression operand;
 
     public UnaryOperation(final CommonExpression operand) {
@@ -35,8 +35,8 @@ public abstract class UnaryOperation implements CommonExpression, PrecedenceAwar
 
     @Override
     public String toMiniString() {
-        return String
-            .format(hasLowerPrecedence(operand, true) ? "%s (%s)" : "%s %s", getOperatorSign(), operand.toMiniString());
+        return String.format(
+            operand instanceof BinaryOperation ? "%s (%s)" : "%s %s", getOperatorSign(), operand.toMiniString());
     }
 
     @Override
@@ -56,10 +56,5 @@ public abstract class UnaryOperation implements CommonExpression, PrecedenceAwar
     @Override
     public int hashCode() {
         return 31 * (31 * (operand.hashCode()) + getClass().hashCode());
-    }
-
-    @Override
-    public final Precedence getPrecedence() {
-        return Precedence.UNARY;
     }
 }

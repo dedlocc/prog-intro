@@ -7,8 +7,8 @@ import java.text.StringCharacterIterator;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.function.BinaryOperator;
+import java.util.function.UnaryOperator;
 
 public final class ExpressionParser implements Parser {
     private CharacterIterator chars;
@@ -186,10 +186,12 @@ public final class ExpressionParser implements Parser {
         boolean match(char c);
     }
 
-    private static final Map<String, Function<CommonExpression, UnaryOperation>> unaryOperations = Map.of(
+    private static final Map<String, UnaryOperator<CommonExpression>> unaryOperations = Map.of(
         "-", Negate::new,
         "abs", Abs::new,
-        "square", Square::new
+        "square", Square::new,
+        "reverse", Reverse::new,
+        "digits", Digits::new
     );
 
     private static final Map<String, BiOperation> binaryOperations = Map.of(
@@ -205,14 +207,13 @@ public final class ExpressionParser implements Parser {
     );
 
 
-    private static class BiOperation
-        implements PrecedenceAware, BiFunction<CommonExpression, CommonExpression, BinaryOperation> {
+    private static class BiOperation implements PrecedenceAware, BinaryOperator<CommonExpression> {
 
-        private final BiFunction<CommonExpression, CommonExpression, BinaryOperation> delegate;
+        private final BinaryOperator<CommonExpression> delegate;
         private final Precedence precedence;
 
         public BiOperation(
-            final BiFunction<CommonExpression, CommonExpression, BinaryOperation> delegate,
+            final BinaryOperator<CommonExpression> delegate,
             final Precedence precedence
         ) {
             this.delegate = delegate;
@@ -225,7 +226,7 @@ public final class ExpressionParser implements Parser {
         }
 
         @Override
-        public BinaryOperation apply(final CommonExpression first, final CommonExpression second) {
+        public CommonExpression apply(final CommonExpression first, final CommonExpression second) {
             return delegate.apply(first, second);
         }
     }

@@ -9,12 +9,20 @@ public class Variable implements CommonExpression {
 
     @Override
     public int evaluate(final int x) {
-        return x;
+        if ("x".equals(name)) {
+            return x;
+        }
+
+        throw noValueError();
     }
 
     @Override
     public double evaluate(final double x) {
-        return x;
+        if ("x".equals(name)) {
+            return x;
+        }
+
+        throw noValueError();
     }
 
     @Override
@@ -23,7 +31,7 @@ public class Variable implements CommonExpression {
             case "x" -> x;
             case "y" -> y;
             case "z" -> z;
-            default -> throw new IllegalArgumentException(String.format("No value provided for variable \"%s\"", name));
+            default -> throw noValueError();
         };
     }
 
@@ -40,5 +48,9 @@ public class Variable implements CommonExpression {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    protected IllegalArgumentException noValueError() {
+        return new IllegalArgumentException(String.format("No value provided for variable \"%s\"", name));
     }
 }

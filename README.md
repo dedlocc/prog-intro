@@ -11,12 +11,18 @@
     * Результат разбора должен реализовывать интерфейс
         [TripleExpression](java/expression/TripleExpression.java)
     * [Исходный код тестов](java/expression/parser/ParserTest.java)
- * *Bitwise*
+ * *Bitwise* (32-35)
     * Дополнительно реализуйте бинарные операции:
         * `&` – побитное И, приоритет меньше чем у `+` (`6 & 1 + 2` равно `6 & (1 + 2)` равно 2);
         * `^` – побитный XOR, приоритет меньше чем у `&` (`6 ^ 1 + 2` равно `6 ^ (1 + 2)` равно 5);
         * `|` – побитное ИЛИ, приоритет меньше чем у `^` (`6 | 1 + 2` равно `6 | (1 + 2)` равно 7);
     * [Исходный код тестов](java/expression/parser/ParserBitwiseTest.java)
+ * *NotCount* (36, 37)
+    * Реализуйте операции из модификации *Bitwise*.
+    * Дополнительно реализуйте унарные операции (приоритет как у унарного минуса):
+        * `~` – побитное отрицание, `~-5` равно 4;
+        * `count` – число установленных битов, `count -5` равно 31.
+    * [Исходный код тестов](java/expression/parser/ParserNotCountTest.java)
 
 
 
@@ -30,10 +36,10 @@
  * *Triple* (32-35)
     * Дополнительно реализуйте интерфейс [TripleExpression](java/expression/TripleExpression.java)
     * [Исходный код тестов](java/expression/TripleExpressionTest.java)
- * *Double* (36,7)
+ * *Double* (36, 37)
     * Дополнительно реализуйте интерфейс [DoubleExpression](java/expression/DoubleExpression.java)
     * [Исходный код тестов](java/expression/DoubleExpressionTest.java)
- * *DoubleTriple* (38,9)
+ * *DoubleTriple* (38, 39)
     * Дополнительно реализуйте интерфейсы 
       [DoubleExpression](java/expression/DoubleExpression.java) и
       [TripleExpression](java/expression/TripleExpression.java)

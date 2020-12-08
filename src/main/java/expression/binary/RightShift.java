@@ -3,7 +3,7 @@ package expression.binary;
 import expression.CommonExpression;
 import expression.Precedence;
 
-public final class RightShift extends BitwiseOperation {
+public final class RightShift extends BinaryBitwiseOperation {
     public RightShift(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }

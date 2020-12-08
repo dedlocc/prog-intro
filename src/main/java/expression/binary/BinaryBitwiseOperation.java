@@ -3,8 +3,8 @@ package expression.binary;
 import expression.CommonExpression;
 import expression.DoubleNotSupportedException;
 
-public abstract class BitwiseOperation extends BinaryOperation {
-    public BitwiseOperation(final CommonExpression first, final CommonExpression second) {
+public abstract class BinaryBitwiseOperation extends BinaryOperation {
+    public BinaryBitwiseOperation(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }
 

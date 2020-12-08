@@ -2,7 +2,9 @@ package expression.parser;
 
 import expression.*;
 import expression.binary.*;
-import expression.unary.*;
+import expression.unary.Count;
+import expression.unary.Negate;
+import expression.unary.Not;
 
 import java.text.CharacterIterator;
 import java.util.ArrayDeque;
@@ -149,10 +151,8 @@ public final class ExpressionParser implements Parser {
 
     private static final Map<String, UnaryOperator<CommonExpression>> unaryOperations = Map.of(
         "-", Negate::new,
-        "abs", Abs::new,
-        "square", Square::new,
-        "reverse", Reverse::new,
-        "digits", Digits::new
+        "~", Not::new,
+        "count", Count::new
     );
 
     private static final Map<String, BiOperation> binaryOperations = Map.of(
@@ -162,9 +162,7 @@ public final class ExpressionParser implements Parser {
         "/", new BiOperation(Divide::new, Precedence.MULTIPLY),
         "&", new BiOperation(And::new, Precedence.AND),
         "^", new BiOperation(Xor::new, Precedence.XOR),
-        "|", new BiOperation(Or::new, Precedence.OR),
-        "<<", new BiOperation(LeftShift::new, Precedence.SHIFT),
-        ">>", new BiOperation(RightShift::new, Precedence.SHIFT)
+        "|", new BiOperation(Or::new, Precedence.OR)
     );
 
     private static class BiOperation implements PrecedenceAware, BinaryOperator<CommonExpression> {

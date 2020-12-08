@@ -3,7 +3,7 @@ package expression.binary;
 import expression.CommonExpression;
 import expression.Precedence;
 
-public final class Xor extends BitwiseOperation {
+public final class Xor extends BinaryBitwiseOperation {
     public Xor(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }

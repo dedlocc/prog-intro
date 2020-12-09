@@ -14,6 +14,11 @@
     * Нельзя использовать типы `long` и `double`
     * Нельзя использовать методы классов `Math` и `StrictMath`
     * [Исходный код тестов](java/expression/exceptions/ExceptionsTest.java)
+ * *AbsSqrt* (32-33)
+    * Дополнительно реализуйте унарные операции:
+        * `abs` – модуль числа, `abs -5` равно 5;
+        * `sqrt` – квадратный корень, `sqrt 24` равно 4.
+    * [Исходный код тестов](java/expression/exceptions/ExceptionsAbsSqrtTest.java)
 
 
 ## Домашнее задание 11. Разбор выражений

@@ -2,6 +2,25 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/prog-intro/homeworks.html)
 
+## Домашнее задание 12. Обработка ошибок
+
+Модификации
+ * *Базовая*
+    * Класс `ExpressionParser` должен реализовывать интерфейс
+        [Parser](java/expression/exceptions/Parser.java)
+    * Классы `CheckedAdd`, `CheckedSubtract`, `CheckedMultiply`,
+        `CheckedDivide` и `CheckedNegate` должны реализовывать интерфейс
+        [TripleExpression](java/expression/TripleExpression.java)
+    * Нельзя использовать типы `long` и `double`
+    * Нельзя использовать методы классов `Math` и `StrictMath`
+    * [Исходный код тестов](java/expression/exceptions/ExceptionsTest.java)
+ * *AbsSqrt* (32-33)
+    * Дополнительно реализуйте унарные операции:
+        * `abs` – модуль числа, `abs -5` равно 5;
+        * `sqrt` – квадратный корень, `sqrt 24` равно 4.
+    * [Исходный код тестов](java/expression/exceptions/ExceptionsAbsSqrtTest.java)
+
+
 ## Домашнее задание 11. Разбор выражений
 
 Модификации
@@ -23,6 +42,15 @@
         * `~` – побитное отрицание, `~-5` равно 4;
         * `count` – число установленных битов, `count -5` равно 31.
     * [Исходный код тестов](java/expression/parser/ParserNotCountTest.java)
+ * *FlipLow* (38, 39)
+    * Реализуйте операции из модификации *Bitwise*.
+    * Дополнительно реализуйте унарные операции (приоритет как у унарного минуса):
+        * `flip` – число с переставленными двоичными цифрами, `flip 12345` равно 9987, 
+                   `flip -12345` равно `-470548481`;
+        * `low` – минимальный установленный бит
+                 (как в [lowestOneBit](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Integer.html#lowestOneBit%28int%29)),
+                 `low 123456` равно 64.
+    * [Исходный код тестов](java/expression/parser/ParserFlipLowTest.java)
 
 
 

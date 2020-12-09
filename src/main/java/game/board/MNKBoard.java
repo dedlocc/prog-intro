@@ -9,29 +9,28 @@ import java.util.EnumSet;
 import java.util.Set;
 
 abstract class MNKBoard implements Board {
-    protected final Cell[][] cells;
     protected final int rows;
     protected final int columns;
     protected final int k;
-    protected final FillStrategy fillStrategy;
-    protected int emptyCells;
 
     protected MNKPosition position;
-
-    protected Cell turn = Cell.X;
-    private int players = 2;
+    protected final Cell[][] cells;
+    protected final FillStrategy fillStrategy;
     private final Set<Cell> eliminated = EnumSet.noneOf(Cell.class);
+
+    private int players = 2;
+    protected int emptyCells;
+    protected Cell turn = Cell.X;
 
     protected MNKBoard(final int rows, final int columns, final int k, final FillStrategy fillStrategy) {
         this.rows = rows;
         this.columns = columns;
         this.k = k;
         this.fillStrategy = fillStrategy;
+        this.cells = new Cell[rows][columns];
+        this.position = new MNKPosition();
 
-        cells = new Cell[rows][columns];
         reset();
-
-        position = new MNKPosition();
     }
 
     @Override
@@ -122,10 +121,6 @@ abstract class MNKBoard implements Board {
             return cells[row][column];
         }
 
-        private boolean isInBounds(final int row, final int column) {
-            return 0 <= row && row < rows && 0 <= column && column < columns;
-        }
-
         @Override
         public boolean isValid(final int row, final int column) {
             return isInBounds(row, column) && Cell.EMPTY == get(row, column);
@@ -134,6 +129,10 @@ abstract class MNKBoard implements Board {
         @Override
         public boolean isValid(final Move move) {
             return isValid(move.getRow(), move.getColumn()) && turn == move.getValue();
+        }
+
+        private boolean isInBounds(final int row, final int column) {
+            return 0 <= row && row < rows && 0 <= column && column < columns;
         }
 
         private int sequenceSize(final Move move, final int rowStep, final int columnStep) {

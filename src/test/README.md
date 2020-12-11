@@ -2,6 +2,14 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/prog-intro/homeworks.html)
 
+## Домашнее задание 13. Markdown to HTML
+
+Модификации
+ * *Базовая*
+    * [Исходный код тестов](java/md2html/Md2HtmlTest.java)
+    * [Откомпилированные тесты](artifacts/md2html/Md2HtmlTest.jar)
+
+
 ## Домашнее задание 12. Обработка ошибок
 
 Модификации
@@ -19,6 +27,12 @@
         * `abs` – модуль числа, `abs -5` равно 5;
         * `sqrt` – квадратный корень, `sqrt 24` равно 4.
     * [Исходный код тестов](java/expression/exceptions/ExceptionsAbsSqrtTest.java)
+ * *MinMax* (сложная)
+    * Реализуйте операции модификации *AbsSqrt*.
+    * Дополнительно реализуйте бинарные операции (минимальный приоритет):
+        * `min` – минимум, `2 min 3` равно 2;
+        * `max` – максимум, `2 max 3` равно 3.
+    * [Исходный код тестов](java/expression/exceptions/ExceptionsMinMaxTest.java)
 
 
 ## Домашнее задание 11. Разбор выражений

@@ -4,7 +4,7 @@ import expression.CommonExpression;
 import expression.Precedence;
 import expression.PrecedenceAware;
 
-public final class Divide extends BinaryOperation {
+public class Divide extends BinaryOperation {
     public Divide(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }

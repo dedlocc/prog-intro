@@ -1,6 +1,6 @@
-package expression;
+package expression.exceptions;
 
-public class DoubleNotSupportedException extends ExpressionException {
+public class DoubleNotSupportedException extends EvaluationException {
     public DoubleNotSupportedException(final String message) {
         super(message, "double not supported");
     }

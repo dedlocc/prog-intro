@@ -2,31 +2,59 @@ package expression.parser;
 
 import expression.*;
 import expression.binary.*;
+import expression.exceptions.ParseException;
+import expression.exceptions.UnexpectedCharacterException;
 import expression.unary.Count;
 import expression.unary.Negate;
 import expression.unary.Not;
 
-import java.text.CharacterIterator;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
-public final class ExpressionParser implements Parser {
-    private CharSource chars;
+public class ExpressionParser implements Parser {
+    protected CharSource chars;
 
-    @Override
-    public CommonExpression parse(final String expression) throws UnexpectedTokenException {
-        chars = new CharSequenceSource(expression);
-        return parseExpression(CharacterIterator.DONE);
+    protected final Map<String, BiOperation> binaryOperations;
+    protected final Map<String, UnaryOperator<CommonExpression>> unaryOperations;
+
+    protected ExpressionParser(
+        final Map<String, BiOperation> binaryOperations,
+        final Map<String, UnaryOperator<CommonExpression>> unaryOperations
+    ) {
+        this.binaryOperations = binaryOperations;
+        this.unaryOperations = unaryOperations;
     }
 
-    private CommonExpression parseExpression(final char until) {
+    public ExpressionParser() {
+        this(Map.of(
+            "+", new BiOperation(Add::new, Precedence.ADD),
+            "-", new BiOperation(Subtract::new, Precedence.ADD),
+            "*", new BiOperation(Multiply::new, Precedence.MULTIPLY),
+            "/", new BiOperation(Divide::new, Precedence.MULTIPLY),
+            "&", new BiOperation(And::new, Precedence.AND),
+            "^", new BiOperation(Xor::new, Precedence.XOR),
+            "|", new BiOperation(Or::new, Precedence.OR)
+        ), Map.of(
+            "-", Negate::new,
+            "~", Not::new,
+            "count", Count::new
+        ));
+    }
+
+    @Override
+    public TripleExpression parse(final String expression) throws ParseException {
+        chars = new CharSequenceSource(expression);
+        return parseExpression(CharSource.END);
+    }
+
+    protected CommonExpression parseExpression(final char until) {
         final Deque<CommonExpression> elements = new ArrayDeque<>();
         final Deque<BiOperation> operations = new ArrayDeque<>();
 
-        while (!chars.test(until)) {
+        while (!test(until)) {
             if (!elements.isEmpty()) {
                 final var operation = parseOperation();
 
@@ -41,10 +69,14 @@ public final class ExpressionParser implements Parser {
 
         applyOperations(elements, operations, Condition::never);
 
+        if (elements.isEmpty()) {
+            throw new ParseException("Empty expression", "empty expression", chars.position());
+        }
+
         return elements.pop();
     }
 
-    private static void applyOperations(
+    protected static void applyOperations(
         final Deque<CommonExpression> elements,
         final Deque<BiOperation> operations,
         final Condition breakCondition
@@ -62,19 +94,31 @@ public final class ExpressionParser implements Parser {
         elements.push(element);
     }
 
-    private CommonExpression parseElement() {
+    protected BiOperation parseOperation() {
         skipWhitespace();
 
-        if (chars.test('(')) {
+        for (final var entry : binaryOperations.entrySet()) {
+            if (test(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+
+        throw UnexpectedCharacterException.fromCharSource(chars);
+    }
+
+    protected CommonExpression parseElement() {
+        skipWhitespace();
+
+        if (test('(')) {
             return parseExpression(')');
         }
 
         final var pos = chars.position();
 
-        final var minus = chars.test('-');
+        final var minus = test('-');
 
-        if (chars.test(Character::isDigit, false)) {
-            return parseInteger(minus);
+        if (test(Character::isDigit, false)) {
+            return new Const(parseInteger(minus));
         }
 
         if (minus) {
@@ -82,66 +126,54 @@ public final class ExpressionParser implements Parser {
         }
 
         for (final var entry : unaryOperations.entrySet()) {
-            if (chars.test(entry.getKey())) {
-                return entry.getValue().apply(parseElement());
+            final var op = entry.getKey();
+            if (test(op)) {
+                if (Character.isLetter(op.charAt(op.length() - 1)) && test(Character::isLetter, false)) {
+                    chars.reset(pos);
+                } else {
+                    return entry.getValue().apply(parseElement());
+                }
             }
         }
 
-        if (chars.test(Character::isLetter, false)) {
-            return parseVariable();
+        if (test(Character::isLetter, false)) {
+            return new Variable(parseVariableName());
         }
 
-        throw new UnexpectedTokenException(chars.current(), chars.position());
+        throw UnexpectedCharacterException.fromCharSource(chars);
     }
 
-    private BiOperation parseOperation() {
-        skipWhitespace();
-
-        for (final var entry : binaryOperations.entrySet()) {
-            if (chars.test(entry.getKey())) {
-                return entry.getValue();
-            }
+    protected int parseInteger(final boolean negative) {
+        final var sb = new StringBuilder();
+        if (negative) {
+            sb.append('-');
         }
 
-        throw new UnexpectedTokenException(chars.current(), chars.position());
-    }
-
-    private Const parseInteger(final boolean negative) {
-        final int limit = negative ? Integer.MIN_VALUE : -Integer.MAX_VALUE;
-        final int secondLimit = limit / 10;
-        int result = 0;
-
-        while (chars.test(Character::isDigit)) {
-            final var digit = chars.current() - '0';
-
-            if (result < secondLimit || (result *= 10) < limit + digit) {
-                throw new OverflowException("Too long integer (only 32 bits are allowed)");
-            }
-
-            result -= digit;
+        while (test(Character::isDigit)) {
+            sb.append(chars.current());
         }
 
-        return new Const(negative ? result : -result);
+        return Integer.parseInt(sb.toString());
     }
 
-    private Variable parseVariable() {
+    protected String parseVariableName() {
         final var name = new StringBuilder();
 
-        while (chars.test(Character::isLetter)) {
+        while (test(Character::isLetter)) {
             name.append(chars.current());
         }
 
-        return new Variable(name.toString());
+        return name.toString();
     }
 
-    private void skipWhitespace() {
+    protected void skipWhitespace() {
         //noinspection StatementWithEmptyBody
-        while (chars.test(Character::isWhitespace)) {
+        while (test(Character::isWhitespace)) {
         }
     }
 
     @FunctionalInterface
-    interface Condition {
+    protected interface Condition {
         boolean test();
 
         static boolean never() {
@@ -149,23 +181,48 @@ public final class ExpressionParser implements Parser {
         }
     }
 
-    private static final Map<String, UnaryOperator<CommonExpression>> unaryOperations = Map.of(
-        "-", Negate::new,
-        "~", Not::new,
-        "count", Count::new
-    );
+    protected boolean test(final CharMatcher matcher, final boolean next) {
+        if (matcher.match(chars.peek())) {
+            if (next) {
+                chars.next();
+            }
+            return true;
+        }
 
-    private static final Map<String, BiOperation> binaryOperations = Map.of(
-        "+", new BiOperation(Add::new, Precedence.ADD),
-        "-", new BiOperation(Subtract::new, Precedence.ADD),
-        "*", new BiOperation(Multiply::new, Precedence.MULTIPLY),
-        "/", new BiOperation(Divide::new, Precedence.MULTIPLY),
-        "&", new BiOperation(And::new, Precedence.AND),
-        "^", new BiOperation(Xor::new, Precedence.XOR),
-        "|", new BiOperation(Or::new, Precedence.OR)
-    );
+        return false;
+    }
 
-    private static class BiOperation implements PrecedenceAware, BinaryOperator<CommonExpression> {
+    protected boolean test(final CharMatcher matcher) {
+        return test(matcher, true);
+    }
+
+    protected boolean test(final char c) {
+        return test(CharMatcher.equals(c));
+    }
+
+    protected boolean test(final CharSequence s) {
+        final var position = chars.position();
+
+        for (var i = 0; i < s.length(); ++i) {
+            if (!test(s.charAt(i))) {
+                chars.reset(position);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @FunctionalInterface
+    protected interface CharMatcher {
+        boolean match(final char c);
+
+        static CharMatcher equals(final char ch) {
+            return c -> c == ch;
+        }
+    }
+
+    protected static class BiOperation implements PrecedenceAware, BinaryOperator<CommonExpression> {
 
         private final BinaryOperator<CommonExpression> delegate;
         private final Precedence precedence;

@@ -2,6 +2,7 @@ package expression.unary;
 
 import expression.CommonExpression;
 import expression.binary.BinaryOperation;
+import expression.exceptions.DoubleNotSupportedException;
 
 public abstract class UnaryOperation implements CommonExpression {
     private final CommonExpression operand;
@@ -12,7 +13,9 @@ public abstract class UnaryOperation implements CommonExpression {
 
     public abstract int apply(final int value);
 
-    public abstract double apply(final double value);
+    public double apply(final double value) {
+        throw new DoubleNotSupportedException("Doubles are not supported by " + getClass().getName());
+    }
 
     public abstract String getOperatorSign();
 

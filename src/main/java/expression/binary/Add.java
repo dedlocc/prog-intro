@@ -3,7 +3,7 @@ package expression.binary;
 import expression.CommonExpression;
 import expression.Precedence;
 
-public final class Add extends BinaryOperation {
+public class Add extends BinaryOperation {
     public Add(final CommonExpression first, final CommonExpression second) {
         super(first, second);
     }

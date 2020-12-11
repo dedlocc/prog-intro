@@ -2,6 +2,7 @@ package expression.binary;
 
 import expression.CommonExpression;
 import expression.PrecedenceAware;
+import expression.exceptions.DoubleNotSupportedException;
 
 public abstract class BinaryOperation implements CommonExpression, PrecedenceAware {
     private final CommonExpression first;
@@ -14,7 +15,9 @@ public abstract class BinaryOperation implements CommonExpression, PrecedenceAwa
 
     public abstract int apply(final int a, final int b);
 
-    public abstract double apply(final double a, final double b);
+    public double apply(final double a, final double b) {
+        throw new DoubleNotSupportedException("Doubles are not supported by " + getClass().getName());
+    }
 
     public abstract String getOperatorSign();
 

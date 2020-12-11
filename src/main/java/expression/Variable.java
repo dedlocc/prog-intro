@@ -1,10 +1,16 @@
 package expression;
 
+import expression.exceptions.ExpressionException;
+
 public final class Variable implements CommonExpression {
     private final String name;
 
     public Variable(final String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

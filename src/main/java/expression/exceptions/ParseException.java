@@ -14,7 +14,7 @@ public class ParseException extends ExpressionException {
     }
 
     private static String formatMessage(final String message, final int pos) {
-        return message + " at position " + pos;
+        return message + " at position " + (1 + pos);
     }
 
     public int getPos() {

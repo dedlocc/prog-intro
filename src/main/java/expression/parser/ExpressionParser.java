@@ -56,7 +56,7 @@ public class ExpressionParser implements Parser {
 
         while (!test(until)) {
             if (!elements.isEmpty()) {
-                final var operation = parseOperation();
+                final var operation = parseBinaryOperation();
 
                 applyOperations(elements, operations, () -> operation.hasLowerPrecedence(operations.peek(), true));
 
@@ -94,13 +94,12 @@ public class ExpressionParser implements Parser {
         elements.push(element);
     }
 
-    protected BiOperation parseOperation() {
+    protected BiOperation parseBinaryOperation() {
         skipWhitespace();
 
-        for (final var entry : binaryOperations.entrySet()) {
-            if (test(entry.getKey())) {
-                return entry.getValue();
-            }
+        final var op = parseOperationRaw();
+        if (binaryOperations.containsKey(op)) {
+            return binaryOperations.get(op);
         }
 
         throw UnexpectedCharacterException.fromCharSource(chars);
@@ -125,22 +124,31 @@ public class ExpressionParser implements Parser {
             chars.reset(pos);
         }
 
-        for (final var entry : unaryOperations.entrySet()) {
-            final var op = entry.getKey();
-            if (test(op)) {
-                if (Character.isLetter(op.charAt(op.length() - 1)) && test(Character::isLetter, false)) {
-                    chars.reset(pos);
-                } else {
-                    return entry.getValue().apply(parseElement());
-                }
-            }
+        final var op = parseOperationRaw();
+        if (unaryOperations.containsKey(op)) {
+            return unaryOperations.get(op).apply(parseElement());
         }
+
+        chars.reset(pos);
 
         if (test(Character::isLetter, false)) {
             return new Variable(parseVariableName());
         }
 
         throw UnexpectedCharacterException.fromCharSource(chars);
+    }
+
+    protected String parseOperationRaw() {
+        final CharMatcher condition = test(CharMatcher::isAlphaNumeric, false)
+            ? CharMatcher::isAlphaNumeric : CharMatcher::isSimple;
+
+        final var sb = new StringBuilder();
+
+        while (test(condition)) {
+            sb.append(chars.current());
+        }
+
+        return sb.toString();
     }
 
     protected int parseInteger(final boolean negative) {
@@ -219,6 +227,14 @@ public class ExpressionParser implements Parser {
 
         static CharMatcher equals(final char ch) {
             return c -> c == ch;
+        }
+
+        static boolean isAlphaNumeric(final char ch) {
+            return Character.isDigit(ch) || Character.isLetter(ch);
+        }
+
+        static boolean isSimple(final char ch) {
+            return CharSource.END != ch && '(' != ch && !Character.isWhitespace(ch) && !isAlphaNumeric(ch);
         }
     }
 

@@ -22,17 +22,23 @@
     * Нельзя использовать типы `long` и `double`
     * Нельзя использовать методы классов `Math` и `StrictMath`
     * [Исходный код тестов](java/expression/exceptions/ExceptionsTest.java)
- * *AbsSqrt* (32-33)
+ * *AbsSqrt* (32-35)
     * Дополнительно реализуйте унарные операции:
         * `abs` – модуль числа, `abs -5` равно 5;
         * `sqrt` – квадратный корень, `sqrt 24` равно 4.
     * [Исходный код тестов](java/expression/exceptions/ExceptionsAbsSqrtTest.java)
- * *MinMax* (сложная)
+ * *MinMax* (36, 37)
     * Реализуйте операции модификации *AbsSqrt*.
     * Дополнительно реализуйте бинарные операции (минимальный приоритет):
         * `min` – минимум, `2 min 3` равно 2;
         * `max` – максимум, `2 max 3` равно 3.
     * [Исходный код тестов](java/expression/exceptions/ExceptionsMinMaxTest.java)
+ * *GcdLcm* (38, 39)
+    * Реализуйте операции модификации *AbsSqrt*.
+    * Дополнительно реализуйте бинарные операции (минимальный приоритет):
+        * `gcd` – НОД, `2 gcd -3` равно 1;
+        * `lcm` – НОК, `2 lcm -3` равно -6.
+    * [Исходный код тестов](java/expression/exceptions/ExceptionsGcdLcmTest.java)
 
 
 ## Домашнее задание 11. Разбор выражений

@@ -18,11 +18,14 @@ public class MainChecker extends Randomized {
     private final Method method;
     protected final TestCounter counter = new TestCounter();
 
-    public MainChecker(final String className) {
+    public MainChecker(String className) {
         try {
             final URL url = new File(".").toURI().toURL();
-            final Class<?> clazz = new URLClassLoader(new URL[]{url}).loadClass(getClass().getPackageName() + "." + className);
-//            clazz.newInstance();
+            if (!className.startsWith(getClass().getPackageName() + '.')) {
+                className += getClass().getPackageName() + '.';
+            }
+            final Class<?> clazz = new URLClassLoader(new URL[]{url}).loadClass(className);
+            //            clazz.newInstance();
             method = clazz.getMethod("main", String[].class);
         } catch (final Exception e) {
             throw new AssertionError("Could not find main(String[]) in class " + className, e);
@@ -35,13 +38,15 @@ public class MainChecker extends Randomized {
 
     public List<String> runComment(final String comment, final String... input) {
         counter.nextTest();
-        System.err.format("Running test %02d: java %s %s\n", counter.getTest(), method.getDeclaringClass().getName(), comment);
+        System.err.format("Running test %02d: java %s %s\n", counter.getTest(), method.getDeclaringClass()
+            .getName(), comment);
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         final PrintStream oldOut = System.out;
         try {
             System.setOut(new PrintStream(out, false, ENCODING));
             method.invoke(null, new Object[]{input});
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(out.toByteArray()), ENCODING));
+            final BufferedReader reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(out
+                .toByteArray()), ENCODING));
             final List<String> result = new ArrayList<>();
             while (true) {
                 final String line = reader.readLine();
@@ -61,7 +66,7 @@ public class MainChecker extends Randomized {
             System.setOut(oldOut);
         }
     }
-
+    
     public void checkEquals(final List<String> expected, final List<String> actual) {
         for (int i = 0; i < Math.min(expected.size(), actual.size()); i++) {
             final String exp = expected.get(i);

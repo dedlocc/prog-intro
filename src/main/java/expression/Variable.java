@@ -1,6 +1,6 @@
 package expression;
 
-import expression.exceptions.ExpressionException;
+import expression.exceptions.EvaluationException;
 
 public final class Variable implements CommonExpression {
     private final String name;
@@ -56,9 +56,9 @@ public final class Variable implements CommonExpression {
         return name.hashCode();
     }
 
-    public class NoValueException extends ExpressionException {
+    public class NoValueException extends EvaluationException {
         private NoValueException() {
-            super(String.format("No value provided for variable \"%s\"", name), "no value");
+            super(String.format("No value provided for variable \"%s\"", name));
         }
     }
 }

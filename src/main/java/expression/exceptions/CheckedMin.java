@@ -9,6 +9,7 @@ public class CheckedMin extends BinaryOperation {
         super(first, second);
     }
 
+    @SuppressWarnings("ManualMinMaxCalculation")
     @Override
     public int apply(final int a, final int b) {
         return a > b ? b : a;

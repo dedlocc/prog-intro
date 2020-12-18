@@ -8,7 +8,7 @@ public final class Main {
         final TripleExpression expression;
 
         try {
-            expression = parser.parse("sqrtx");
+            expression = parser.parse("1000000*x*x*x*x*x/(x-1)");
         } catch (final ParseException e) {
             System.out.println("Unable to parse expression: " + e.getMessage());
             return;
@@ -16,12 +16,16 @@ public final class Main {
 
         System.out.println("x\tf");
 
-        for (int i = 0; i <= 20; ++i) {
+        for (int i = 0; i <= 10; ++i) {
             System.out.printf("%d\t", i);
             try {
                 System.out.println(expression.evaluate(i, 0, 0));
+            } catch (final OverflowException e) {
+                System.out.println("overflow");
+            } catch (final DivisionByZeroException e) {
+                System.out.println("division by zero");
             } catch (final EvaluationException e) {
-                System.out.println(e.getReason());
+                System.out.println("unexpected evaluation error");
             }
         }
     }

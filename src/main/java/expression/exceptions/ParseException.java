@@ -1,15 +1,15 @@
 package expression.exceptions;
 
-public class ParseException extends ExpressionException {
+public class ParseException extends RuntimeException {
     private final int pos;
 
-    public ParseException(final String message, final String reason, final int pos) {
-        super(formatMessage(message, pos), reason);
+    public ParseException(final String message, final int pos) {
+        super(formatMessage(message, pos));
         this.pos = pos;
     }
 
-    public ParseException(final String message, final String reason, final int pos, final Throwable cause) {
-        super(formatMessage(message, pos), reason, cause);
+    public ParseException(final String message, final int pos, final Throwable cause) {
+        super(formatMessage(message, pos), cause);
         this.pos = pos;
     }
 

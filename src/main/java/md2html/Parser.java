@@ -22,6 +22,8 @@ public final class Parser {
         put("~", "mark");
     }};
 
+    private static final Set<Character> ESCAPABLE = Set.of('*', '_', '-', '`', '+', '~', '[', ']', '(', ')');
+
     private ParagraphSource src;
     private StringBuilder html;
 
@@ -67,11 +69,7 @@ public final class Parser {
             }
 
             if (src.test('!', '[')) {
-                parseLink(html, "<img alt='%1$s' src='%2$s'>", true);
-                continue;
-            }
-            if (src.test('[')) {
-                parseLink(html, "<a href='%2$s'>%1$s</a>", false);
+                parseImage(html);
                 continue;
             }
 
@@ -87,7 +85,7 @@ public final class Parser {
                 }
             }
 
-            final var ch = src.test(CharMatcher.equals('\\'), Set.of('*', '_', '-', '`')::contains)
+            final var ch = src.test(CharMatcher.equals('\\'), ESCAPABLE::contains)
                 ? src.current() : src.next();
 
             if (SPECIAL_CHARS.containsKey(ch)) {
@@ -113,10 +111,10 @@ public final class Parser {
         }
     }
 
-    private void parseLink(final StringBuilder html, final String format, final boolean ignoreFormatting) {
+    private void parseImage(final StringBuilder html) {
         final var label = new StringBuilder();
         final var formats = new HashSet<>(Set.of("]"));
-        parseText(label, formats, "]", ignoreFormatting);
+        parseText(label, formats, "]", true);
         if (formats.contains("]")) {
             html.append('[').append(label);
             return;
@@ -134,6 +132,6 @@ public final class Parser {
             return;
         }
 
-        html.append(String.format(format, label, destination));
+        html.append(String.format("<img alt='%1$s' src='%2$s'>", label, destination));
     }
 }

@@ -30,7 +30,7 @@ public class ExpressionParser extends expression.parser.ExpressionParser impleme
         try {
             return super.parseInteger(negative);
         } catch (final NumberFormatException e) {
-            throw new ConstOverflowException(negative, startPos, e);
+            throw new ConstOverflowException(negative, negative ? startPos - 1 : startPos, e);
         }
     }
 

@@ -8,6 +8,15 @@
  * *Базовая*
     * [Исходный код тестов](java/md2html/Md2HtmlTest.java)
     * [Откомпилированные тесты](artifacts/md2html/Md2HtmlTest.jar)
+ * *Mark* (32-35)
+    * Добавьте поддержку `~выделения цветом~`: `<mark>выделения цветом</mark>`
+    * [Исходный код тестов](java/md2html/Md2HtmlMarkTest.java)
+    * [Откомпилированные тесты](artifacts/md2html/Md2HtmlMarkTest.jar)
+ * *Image* (36, 37)
+    * Добавьте поддержку ```![картинок](http://www.ifmo.ru/images/menu/small/p10.jpg)```:
+        ```&lt;img alt='картинок' src='http://www.ifmo.ru/images/menu/small/p10.jpg'&gt;```
+    * [Исходный код тестов](java/md2html/Md2HtmlImageTest.java)
+    * [Откомпилированные тесты](artifacts/md2html/Md2HtmlImageTest.jar)
 
 
 ## Домашнее задание 12. Обработка ошибок

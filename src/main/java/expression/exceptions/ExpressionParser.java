@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class ExpressionParser extends expression.parser.ExpressionParser implements Parser {
-    private static final Set<String> allowedVariableNames = Set.of("x", "y", "z");
+    private static final Set<String> ALLOWED_VARIABLE_NAMES = Set.of("x", "y", "z");
 
     public ExpressionParser() {
         super(Map.of(
@@ -39,7 +39,7 @@ public class ExpressionParser extends expression.parser.ExpressionParser impleme
         final var startPos = chars.position();
         final var name = super.parseVariableName();
 
-        if (!allowedVariableNames.contains(name)) {
+        if (!ALLOWED_VARIABLE_NAMES.contains(name)) {
             throw new UnknownVariableException(name, startPos);
         }
 

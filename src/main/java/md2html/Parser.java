@@ -11,16 +11,18 @@ public final class Parser {
         '>', "gt"
     );
 
-    private static final Map<String, String> TAGS = new LinkedHashMap<>() {{
-        put("**", "strong");
-        put("__", "strong");
-        put("--", "s");
-        put("++", "u");
-        put("*", "em");
-        put("_", "em");
-        put("`", "code");
-        put("~", "mark");
-    }};
+    private static final Map<String, String> TAGS = new LinkedHashMap<>() {
+        {
+            put("**", "strong");
+            put("__", "strong");
+            put("--", "s");
+            put("++", "u");
+            put("*", "em");
+            put("_", "em");
+            put("`", "code");
+            put("~", "mark");
+        }
+    };
 
     private static final Set<Character> ESCAPABLE = Set.of('*', '_', '-', '`', '+', '~', '[', ']', '(', ')');
 

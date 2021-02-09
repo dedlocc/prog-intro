@@ -22,7 +22,7 @@ public class MainChecker extends Randomized {
         try {
             final URL url = new File(".").toURI().toURL();
             if (!className.startsWith(getClass().getPackageName() + '.')) {
-                className += getClass().getPackageName() + '.';
+                className = getClass().getPackageName() + '.' + className;
             }
             final Class<?> clazz = new URLClassLoader(new URL[]{url}).loadClass(className);
             //            clazz.newInstance();
@@ -66,7 +66,7 @@ public class MainChecker extends Randomized {
             System.setOut(oldOut);
         }
     }
-    
+
     public void checkEquals(final List<String> expected, final List<String> actual) {
         for (int i = 0; i < Math.min(expected.size(), actual.size()); i++) {
             final String exp = expected.get(i);
